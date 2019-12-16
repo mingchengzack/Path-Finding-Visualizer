@@ -11,8 +11,8 @@ class Navbar extends Component {
         </a>
         <ul className="navbar-nav">
           <Navitem name={"Algorithms"} />
-          <Navitem name={"Visualize"} />
           <Navitem name={"Clear Board"} />
+          <Navitem name={"Visualize"} />
         </ul>
       </nav>
     );
