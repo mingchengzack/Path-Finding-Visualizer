@@ -23,6 +23,7 @@ class Grid extends Component {
     }
     this.setState({ grid });
   }
+
   render() {
     const { grid } = this.state;
 
