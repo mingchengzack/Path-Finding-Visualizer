@@ -5,6 +5,10 @@
   display: inline-block;
 }
 
+div {
+  line-height: 1;
+}
+
 .grid {
   margin: 100px 0 0;
 }
