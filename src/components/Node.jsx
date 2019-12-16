@@ -7,7 +7,7 @@ class Node extends Component {
     this.state = {};
   }
   render() {
-    return <div className="node"></div>;
+    return <div className="node">s</div>;
   }
 }
 
