@@ -1,8 +1,7 @@
 .node {
   width: 25px;
   height: 25px;
-  margin-left: 1px;
-  outline: 1px solid black;
+  border: 1px solid rgba(91, 153, 247, 0.918);
   display: inline-block;
 }
 
@@ -18,8 +17,8 @@
   background-color: purple;
 }
 
-div {
-  line-height: 1;
+#row {
+  line-height: 0;
 }
 
 .grid {

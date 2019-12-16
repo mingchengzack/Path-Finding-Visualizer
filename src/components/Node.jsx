@@ -7,6 +7,10 @@ class Node extends Component {
     this.state = {};
   }
 
+  preventDragHandler = e => {
+    e.preventDefault();
+  };
+
   render() {
     let { type } = this.props.node;
     let typename =
@@ -20,7 +24,14 @@ class Node extends Component {
     return (
       <div
         className={`node ${typename}`}
-        onClick={() => this.props.onChangeNode(this.props.node, nodeType.WALL)}
+        onMouseDown={() =>
+          this.props.onMouseDown(this.props.node, nodeType.WALL)
+        }
+        onMouseEnter={() =>
+          this.props.onMouseEnter(this.props.node, nodeType.WALL)
+        }
+        onMouseUp={() => this.props.onMouseUp()}
+        onDragStart={this.preventDragHandler}
       ></div>
     );
   }
