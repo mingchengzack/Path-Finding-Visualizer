@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 
 class Navitem extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = { name: props.name };
+  }
+
   render() {
     return (
-      <li class="nav-item active">
-        <a class="nav-link" href="#">
-          Home
+      <li className="nav-item active">
+        <a className="nav-link" href="#">
+          {this.state.name}
         </a>
       </li>
     );

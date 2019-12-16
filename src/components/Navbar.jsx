@@ -3,17 +3,16 @@ import Navitem from "./Navitem";
 import "./Navbar.css";
 
 class Navbar extends Component {
-  state = {};
   render() {
     return (
-      <nav class="navbar navbar-dark navbar-expand-lg bg-primary">
-        <a class="navbar-brand" href="#">
+      <nav className="navbar navbar-dark navbar-expand-lg bg-primary">
+        <a className="navbar-brand" href="#">
           Pathfinding Visualizer
         </a>
-        <ul class="navbar-nav">
-          <Navitem />
-          <Navitem />
-          <Navitem />
+        <ul className="navbar-nav">
+          <Navitem name={"Algorithms"} />
+          <Navitem name={"Visualize"} />
+          <Navitem name={"Clear Board"} />
         </ul>
       </nav>
     );
