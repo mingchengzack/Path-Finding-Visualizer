@@ -11,80 +11,79 @@ const DEFAULT_END_Y = 12;
 class Grid extends Component {
   constructor(props) {
     super(props);
-    const { grid, start, end } = this.constructInitGrid();
+    const grid = this.constructInitGrid();
     this.state = {
-      grid: grid,
-      isMousePressed: false,
-      start: start,
-      end: end,
-      clickedNode: null
+      grid: grid
     };
-  }
-
-  resetGrid() {
-    const { grid, start, end } = this.constructInitGrid();
-    this.setState({ grid, start, end });
+    this.isMousePressed = false;
+    this.clickedNode = null;
   }
 
   componentDidMount() {
     this.props.onRef(this);
   }
+
   componentWillUnmount() {
     this.props.onRef(undefined);
   }
 
-  getGridWithNewNode(node, type) {
-    const { grid } = this.state;
-    const { x, y } = node;
-    if (grid[y][x].type === nodeType.DEFAULT) {
-      grid[y][x].type = type;
-    } else if (grid[y][x].type === type) {
-      grid[y][x].type = nodeType.DEFAULT;
+  resetGrid() {
+    let rows = this.props.rows;
+    let cols = this.props.cols;
+
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        const type =
+          j === DEFAULT_START_X && i === DEFAULT_START_Y
+            ? nodeType.START
+            : j === DEFAULT_END_X && i === DEFAULT_END_Y
+            ? nodeType.END
+            : nodeType.DEFAULT;
+        this[`node-${i}-${j}`].setNode(type);
+      }
     }
-    return grid;
   }
 
-  handleMouseDown = (node, type) => {
-    const grid = this.getGridWithNewNode(node, type);
-    this.setState({ grid: grid, isMousePressed: true, clickedNode: node });
+  handleMouseDown = node => {
+    this.isMousePressed = true;
+    this.clickedNode = node;
   };
 
   handleMouseEnter = (node, type) => {
-    if (!this.state.isMousePressed) return;
+    if (!this.isMousePressed) return;
     if (
-      this.state.clickedNode.type !== nodeType.START &&
-      this.state.clickedNode.type !== nodeType.END
+      this.clickedNode.type !== nodeType.START &&
+      this.clickedNode.type !== nodeType.END
     ) {
-      const grid = this.getGridWithNewNode(node, type);
-      this.setState({ grid });
+      let new_type;
+      if (node.type === nodeType.DEFAULT) {
+        new_type = type;
+      } else if (node.type === type) {
+        new_type = nodeType.DEFAULT;
+      }
+      this[`node-${node.y}-${node.x}`].setNode(new_type);
     } else {
       if (node.type === nodeType.DEFAULT) {
-        const { grid } = this.state;
-        const prevX = this.state.clickedNode.x;
-        const prevY = this.state.clickedNode.y;
+        const prevX = this.clickedNode.x;
+        const prevY = this.clickedNode.y;
         const { x, y } = node;
-        grid[y][x].type = this.state.clickedNode.type;
-        if (grid[y][x].type === nodeType.START) {
-          this.setState({ start: grid[y][x] });
-        } else if (grid[y][x].type === nodeType.END) {
-          this.setState({ end: grid[y][x] });
-        }
-        grid[prevY][prevX].type = nodeType.DEFAULT;
-        this.setState({ grid: grid, clickedNode: grid[y][x] });
+        this[`node-${prevY}-${prevX}`].setNode(nodeType.DEFAULT);
+        this[`node-${y}-${x}`].setNode(this.clickedNode.type);
+        this.clickedNode.x = x;
+        this.clickedNode.y = y;
       }
     }
   };
 
   handleMouseUp = () => {
-    this.setState({ isMousePressed: false, clickedNode: null });
+    this.isMousePressed = false;
+    this.clickedNode = null;
   };
 
   constructInitGrid() {
     let rows = this.props.rows;
     let cols = this.props.cols;
     let grid = [];
-    let start = [];
-    let end = [];
 
     for (let i = 0; i < rows; i++) {
       let row = [];
@@ -99,16 +98,11 @@ class Grid extends Component {
               ? nodeType.END
               : nodeType.DEFAULT
         };
-        if (node.type === nodeType.START) {
-          start = node;
-        } else if (node.type === nodeType.END) {
-          end = node;
-        }
         row.push(node);
       }
       grid.push(row);
     }
-    return { grid, start, end };
+    return grid;
   }
 
   render() {
@@ -123,7 +117,11 @@ class Grid extends Component {
                 return (
                   <Node
                     key={nodeIdx}
+                    id={`node-${rowIdx}-${nodeIdx}`}
                     node={node}
+                    onMouseDown={this.handleMouseDown}
+                    onMouseEnter={this.handleMouseEnter}
+                    onMouseUp={this.handleMouseUp}
                     onRef={ref => (this[`node-${rowIdx}-${nodeIdx}`] = ref)}
                   />
                 );
