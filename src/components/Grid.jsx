@@ -9,8 +9,8 @@ const DEFAULT_END_X = 42;
 const DEFAULT_END_Y = 12;
 
 class Grid extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       grid: [],
       isMousePressed: false,
@@ -20,7 +20,7 @@ class Grid extends Component {
     };
   }
 
-  getGridWithNewNode = (node, type) => {
+  getGridWithNewNode(node, type) {
     const { grid } = this.state;
     const { x, y } = node;
     if (grid[y][x].type === nodeType.DEFAULT) {
@@ -29,7 +29,7 @@ class Grid extends Component {
       grid[y][x].type = nodeType.DEFAULT;
     }
     return grid;
-  };
+  }
 
   handleMouseDown = (node, type) => {
     const grid = this.getGridWithNewNode(node, type);
@@ -45,12 +45,17 @@ class Grid extends Component {
       const grid = this.getGridWithNewNode(node, type);
       this.setState({ grid });
     } else {
-      if (node.type == nodeType.DEFAULT) {
+      if (node.type === nodeType.DEFAULT) {
         const { grid } = this.state;
         const prevX = this.state.clickedNode.x;
         const prevY = this.state.clickedNode.y;
         const { x, y } = node;
         grid[y][x].type = this.state.clickedNode.type;
+        if (grid[y][x].type === nodeType.START) {
+          this.setState({ start: grid[y][x] });
+        } else if (grid[y][x].type === nodeType.END) {
+          this.setState({ end: grid[y][x] });
+        }
         grid[prevY][prevX].type = nodeType.DEFAULT;
         this.setState({ grid: grid, clickedNode: grid[y][x] });
       }
@@ -61,7 +66,7 @@ class Grid extends Component {
     this.setState({ isMousePressed: false, clickedNode: null });
   };
 
-  componentDidMount() {
+  constructInitGrid() {
     let rows = this.props.rows;
     let cols = this.props.cols;
     let grid = [];
@@ -90,6 +95,11 @@ class Grid extends Component {
       }
       grid.push(row);
     }
+    return { grid, start, end };
+  }
+
+  componentDidMount() {
+    const { grid, start, end } = this.constructInitGrid();
     this.setState({ grid, start, end });
   }
 

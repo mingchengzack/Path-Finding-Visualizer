@@ -1,19 +1,45 @@
 import React, { Component } from "react";
+import { Button } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 
 class Navitem extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: props.name };
+    this.state = { name: props.name, type: props.type };
   }
 
   render() {
-    return (
-      <li className="nav-item active">
-        <a className="nav-link" href="#">
-          {this.state.name}
-        </a>
-      </li>
-    );
+    const { type } = this.state;
+    if (type === "button") {
+      return (
+        <li>
+          <Button variant="success">{this.state.name}</Button>
+        </li>
+      );
+    } else {
+      return (
+        <li>
+          <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              {this.state.name + " : " + this.props.curItem}
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              {this.props.itemList.map(item => {
+                return (
+                  <Dropdown.Item
+                    key={item}
+                    onSelect={() => this.props.onChangeItem(item)}
+                  >
+                    {item}
+                  </Dropdown.Item>
+                );
+              })}
+            </Dropdown.Menu>
+          </Dropdown>
+        </li>
+      );
+    }
   }
 }
 
