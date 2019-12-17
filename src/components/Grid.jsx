@@ -124,9 +124,7 @@ class Grid extends Component {
                   <Node
                     key={nodeIdx}
                     node={node}
-                    onMouseDown={this.handleMouseDown}
-                    onMouseEnter={this.handleMouseEnter}
-                    onMouseUp={this.handleMouseUp}
+                    onRef={ref => (this[`node-${rowIdx}-${nodeIdx}`] = ref)}
                   />
                 );
               })}
