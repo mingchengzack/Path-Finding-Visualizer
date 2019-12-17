@@ -13,7 +13,9 @@ class Navitem extends Component {
     if (type === "button") {
       return (
         <li>
-          <Button variant="success">{this.state.name}</Button>
+          <Button variant="success" onClick={() => this.props.onClick()}>
+            {this.state.name}
+          </Button>
         </li>
       );
     } else {

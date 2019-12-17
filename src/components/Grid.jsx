@@ -9,15 +9,28 @@ const DEFAULT_END_X = 42;
 const DEFAULT_END_Y = 12;
 
 class Grid extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { grid, start, end } = this.constructInitGrid();
     this.state = {
-      grid: [],
+      grid: grid,
       isMousePressed: false,
-      start: null,
-      end: null,
+      start: start,
+      end: end,
       clickedNode: null
     };
+  }
+
+  resetGrid() {
+    const { grid, start, end } = this.constructInitGrid();
+    this.setState({ grid, start, end });
+  }
+
+  componentDidMount() {
+    this.props.onRef(this);
+  }
+  componentWillUnmount() {
+    this.props.onRef(undefined);
   }
 
   getGridWithNewNode(node, type) {
@@ -96,11 +109,6 @@ class Grid extends Component {
       grid.push(row);
     }
     return { grid, start, end };
-  }
-
-  componentDidMount() {
-    const { grid, start, end } = this.constructInitGrid();
-    this.setState({ grid, start, end });
   }
 
   render() {

@@ -15,11 +15,19 @@ const algorithms = [
 class PathfindingVisualizer extends Component {
   constructor() {
     super();
-    this.state = { curAlgorithm: "Dijkstra" };
+    this.state = { curAlgorithm: "Dijkstra", reset: false };
   }
 
   handleChangeAlgorithm = algorithm => {
     this.setState({ curAlgorithm: algorithm });
+  };
+
+  handleReset = () => {
+    this.grid.resetGrid();
+  };
+
+  handleVisualize = () => {
+    console.log("visualize");
   };
 
   render() {
@@ -28,8 +36,16 @@ class PathfindingVisualizer extends Component {
         <Navbar bg="primary" variant="dark">
           <Navbar.Brand href="#home">Pathfinding Visualizer</Navbar.Brand>
           <Nav className="mr-auto">
-            <Navitem name={"Visualize"} type={"button"} />
-            <Navitem name={"Clear Board"} type={"button"} />
+            <Navitem
+              name={"Visualize"}
+              type={"button"}
+              onClick={this.handleVisualize}
+            />
+            <Navitem
+              name={"Reset Board"}
+              type={"button"}
+              onClick={this.handleReset}
+            />
             <Navitem
               name={"Algorithms"}
               type={"dropdown"}
@@ -39,7 +55,7 @@ class PathfindingVisualizer extends Component {
             />
           </Nav>
         </Navbar>
-        <Grid rows={24} cols={54} />
+        <Grid rows={24} cols={54} onRef={ref => (this.grid = ref)} />
       </div>
     );
   }
