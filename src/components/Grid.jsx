@@ -11,10 +11,7 @@ const DEFAULT_END_Y = 12;
 class Grid extends Component {
   constructor(props) {
     super(props);
-    const grid = this.constructInitGrid();
-    this.state = {
-      grid: grid
-    };
+    this.grid = this.constructInitGrid();
     this.isMousePressed = false;
     this.clickedNode = null;
   }
@@ -39,14 +36,21 @@ class Grid extends Component {
             : j === DEFAULT_END_X && i === DEFAULT_END_Y
             ? nodeType.END
             : nodeType.DEFAULT;
+        let node = {
+          x: j,
+          y: i,
+          type: type
+        };
+        this.grid[i][j] = node;
         this[`node-${i}-${j}`].setNode(type);
       }
     }
   }
 
-  handleMouseDown = node => {
+  handleMouseDown = (node, type) => {
     this.isMousePressed = true;
     this.clickedNode = node;
+    this.grid[node.y][node.x].type = type;
   };
 
   handleMouseEnter = (node, type) => {
@@ -55,20 +59,23 @@ class Grid extends Component {
       this.clickedNode.type !== nodeType.START &&
       this.clickedNode.type !== nodeType.END
     ) {
-      let new_type;
+      let new_type = node.type;
       if (node.type === nodeType.DEFAULT) {
         new_type = type;
       } else if (node.type === type) {
         new_type = nodeType.DEFAULT;
       }
       this[`node-${node.y}-${node.x}`].setNode(new_type);
+      this.grid[node.y][node.x].type = new_type;
     } else {
       if (node.type === nodeType.DEFAULT) {
         const prevX = this.clickedNode.x;
         const prevY = this.clickedNode.y;
         const { x, y } = node;
         this[`node-${prevY}-${prevX}`].setNode(nodeType.DEFAULT);
+        this.grid[prevY][prevX].type = nodeType.DEFAULT;
         this[`node-${y}-${x}`].setNode(this.clickedNode.type);
+        this.grid[y][x].type = this.clickedNode.type;
         this.clickedNode.x = x;
         this.clickedNode.y = y;
       }
@@ -106,11 +113,9 @@ class Grid extends Component {
   }
 
   render() {
-    let { grid } = this.state;
-
     return (
       <div className="grid">
-        {grid.map((row, rowIdx) => {
+        {this.grid.map((row, rowIdx) => {
           return (
             <div key={rowIdx} id="row">
               {row.map((node, nodeIdx) => {

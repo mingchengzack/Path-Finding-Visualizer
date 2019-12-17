@@ -27,7 +27,7 @@ class Node extends Component {
       new_type = nodeType.DEFAULT;
     }
     this.setState({ type: new_type });
-    this.props.onMouseDown(this.state);
+    this.props.onMouseDown(this.state, new_type);
   };
 
   setNode = type => {
