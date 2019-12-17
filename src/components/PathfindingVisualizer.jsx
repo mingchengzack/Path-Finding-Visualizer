@@ -5,6 +5,13 @@ import { Nav } from "react-bootstrap";
 import Navitem from "./Navitem";
 import "./Navbar.css";
 
+const algorithms = [
+  "Dijkstra",
+  "A*",
+  "Depth First Search",
+  "Breadth First Search"
+];
+
 class PathfindingVisualizer extends Component {
   constructor() {
     super();
@@ -16,12 +23,6 @@ class PathfindingVisualizer extends Component {
   };
 
   render() {
-    const algorithms = [
-      "Dijkstra",
-      "A*",
-      "Depth First Search",
-      "Breadth First Search"
-    ];
     return (
       <div>
         <Navbar bg="primary" variant="dark">
