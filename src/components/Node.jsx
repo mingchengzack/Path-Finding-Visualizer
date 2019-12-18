@@ -22,8 +22,9 @@ class Node extends Component {
   handleChangeNode = type => {
     let new_type = this.state.type;
     if (
-      this.state.type !== nodeType.START &&
-      this.state.type !== nodeType.END
+      this.state.type === nodeType.DEFAULT ||
+      this.state.type === nodeType.VISITED ||
+      this.state.type === nodeType.PATH
     ) {
       new_type = type;
     } else if (this.state.type === type) {

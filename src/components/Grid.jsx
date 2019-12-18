@@ -101,7 +101,12 @@ class Grid extends Component {
     for (let i = 0; i <= visitedNodes.length; i++) {
       if (i === visitedNodes.length) {
         setTimeout(() => {
-          this.animateShortestPath(nodesInShortestPath);
+          for (let j = 0; j < nodesInShortestPath.length; j++) {
+            setTimeout(() => {
+              const node = nodesInShortestPath[j];
+              this[`node-${node.y}-${node.x}`].setNode(nodeType.PATH);
+            }, 50 * j);
+          }
         }, speed * i);
       } else {
         setTimeout(() => {
@@ -109,15 +114,6 @@ class Grid extends Component {
           this[`node-${node.y}-${node.x}`].setNode(nodeType.VISITED);
         }, speed * i);
       }
-    }
-  }
-
-  animateShortestPath(nodesInShortestPath) {
-    for (let i = 0; i < nodesInShortestPath.length; i++) {
-      setTimeout(() => {
-        const node = nodesInShortestPath[i];
-        this[`node-${node.y}-${node.x}`].setNode(nodeType.PATH);
-      }, 50 * i);
     }
   }
 
@@ -134,7 +130,11 @@ class Grid extends Component {
       this.clickedNode.type !== nodeType.END
     ) {
       let new_type = node.type;
-      if (node.type !== nodeType.START && node.type !== nodeType.END) {
+      if (
+        node.type === nodeType.DEFAULT ||
+        node.type === nodeType.VISITED ||
+        node.type === nodeType.PATH
+      ) {
         new_type = type;
       } else if (node.type === type) {
         new_type = nodeType.DEFAULT;
