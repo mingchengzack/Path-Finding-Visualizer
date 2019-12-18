@@ -2,7 +2,7 @@ import { nodeType } from "../components/Node";
 
 // performs Dijkstra's algorithm
 export function dijkstra(grid, startNode, endNode) {
-  const visitedNodes = [];
+  let visitedNodes = [];
   let unvisitedNodes = [];
   for (const row of grid) {
     for (const node of row) {
@@ -31,7 +31,7 @@ export function dijkstra(grid, startNode, endNode) {
 }
 
 // backtracks from the endNode to find the shortest path
-export function getNodesInShortestPath(startNode, endNode) {
+export function dijkstraPath(startNode, endNode) {
   const nodesInShortestPath = [];
   let currNode = endNode.prevNode;
   while (currNode !== null && currNode !== startNode) {

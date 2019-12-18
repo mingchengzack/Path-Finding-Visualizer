@@ -7,7 +7,7 @@ import "./Navbar.css";
 
 const algorithms = [
   "Dijkstra",
-  "A*",
+  "A* Search",
   "Depth First Search",
   "Breadth First Search"
 ];

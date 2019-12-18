@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import Node, { nodeType } from "./Node";
-import { dijkstra, getNodesInShortestPath } from "../algorithms/dijkstra";
+import { dijkstra, dijkstraPath } from "../algorithms/dijkstra";
+import { dfs } from "../algorithms/dfs";
+import { bfs } from "../algorithms/bfs";
 
 import "./Node.css";
 
-const DEFAULT_START_X = 8;
+const DEFAULT_START_X = 14;
 const DEFAULT_START_Y = 12;
-const DEFAULT_END_X = 42;
+const DEFAULT_END_X = 36;
 const DEFAULT_END_Y = 12;
 
 class Grid extends Component {
@@ -82,6 +84,12 @@ class Grid extends Component {
       case "Dijkstra":
         this.visualizeDijkstra(speed);
         break;
+      case "Depth First Search":
+        this.visualizeDFS(speed);
+        break;
+      case "Breadth First Search":
+        this.visualizeBFS(speed);
+        break;
       default:
         this.visualizeDijkstra(speed);
         break;
@@ -90,29 +98,36 @@ class Grid extends Component {
 
   visualizeDijkstra(speed) {
     const visitedNodes = dijkstra(this.grid, this.startNode, this.endNode);
-    const nodesInShortestPath = getNodesInShortestPath(
-      this.startNode,
-      this.endNode
-    );
-    this.animateDijkstra(visitedNodes, nodesInShortestPath, speed);
+    const nodesInPath = dijkstraPath(this.startNode, this.endNode);
+    this.animatePath(visitedNodes, nodesInPath, speed);
   }
 
-  animateDijkstra(visitedNodes, nodesInShortestPath, speed) {
+  visualizeDFS(speed) {
+    const visitedNodes = dfs(this.grid, this.startNode, this.endNode);
+    this.animatePath(visitedNodes, visitedNodes, speed);
+  }
+
+  visualizeBFS(speed) {
+    const visitedNodes = bfs(this.grid, this.startNode, this.endNode);
+    this.animatePath(visitedNodes, visitedNodes, speed);
+  }
+
+  animatePath(visitedNodes, nodesInPath, speed) {
     for (let i = 0; i <= visitedNodes.length; i++) {
       if (i === visitedNodes.length) {
         setTimeout(() => {
-          for (let j = 0; j < nodesInShortestPath.length; j++) {
+          for (let j = 0; j < nodesInPath.length; j++) {
             setTimeout(() => {
-              const node = nodesInShortestPath[j];
+              const node = nodesInPath[j];
               this[`node-${node.y}-${node.x}`].setNode(nodeType.PATH);
-            }, 20 + 50 * j);
+            }, 10 + 2 * speed * j);
           }
-        }, speed + speed * i);
+        }, 10 + speed * i);
       } else {
         setTimeout(() => {
           const node = visitedNodes[i];
           this[`node-${node.y}-${node.x}`].setNode(nodeType.VISITED);
-        }, 20 + speed * i);
+        }, 10 + speed * i);
       }
     }
   }
