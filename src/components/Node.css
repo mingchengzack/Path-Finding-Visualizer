@@ -1,7 +1,9 @@
 .node {
   width: 25px;
   height: 25px;
-  border: 1px solid rgba(162, 194, 241, 0.918);
+  border: 1px solid rgb(175, 216, 248);
+  margin-left: -1px;
+  margin-bottom: -1px;
   display: inline-block;
 }
 
@@ -9,12 +11,7 @@
   border: 1px solid green;
   animation-name: startAnimation;
   animation-duration: 1.5s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
   animation-fill-mode: forwards;
-  animation-play-state: running;
 }
 
 @keyframes startAnimation {
@@ -38,12 +35,7 @@
   border: 1px solid red;
   animation-name: endAnimation;
   animation-duration: 1.5s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
   animation-fill-mode: forwards;
-  animation-play-state: running;
 }
 
 @keyframes endAnimation {
@@ -86,18 +78,13 @@
 }
 
 .node-visited-nonanimated {
-  background-color: rgba(1, 90, 206, 0.75);
+  background-color: rgba(0, 190, 218, 0.75);
 }
 
 .node-visited {
   animation-name: visitedAnimation;
   animation-duration: 0.3s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
   animation-fill-mode: forwards;
-  animation-play-state: running;
 }
 
 @keyframes visitedAnimation {
@@ -118,7 +105,7 @@
 
   100% {
     transform: scale(1);
-    background-color: rgba(1, 90, 206, 0.75);
+    background-color: rgba(0, 190, 218, 0.75);
   }
 }
 
@@ -131,12 +118,7 @@
   border: 1px solid rgb(248, 248, 83);
   animation-name: pathAnimation;
   animation-duration: 1s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
   animation-fill-mode: forwards;
-  animation-play-state: running;
 }
 
 @keyframes pathAnimation {

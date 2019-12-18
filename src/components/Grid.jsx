@@ -169,7 +169,9 @@ class Grid extends Component {
       if (
         node.type === nodeType.DEFAULT ||
         node.type === nodeType.VISITED ||
-        node.type === nodeType.PATH
+        node.type === nodeType.VISITED_NOANIMATION ||
+        node.type === nodeType.PATH ||
+        node.type === nodeType.PATH_NOANIMATION
       ) {
         new_type = type;
       } else if (node.type === type) {

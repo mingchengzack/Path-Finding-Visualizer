@@ -24,7 +24,9 @@ class Node extends Component {
     if (
       this.state.type === nodeType.DEFAULT ||
       this.state.type === nodeType.VISITED ||
-      this.state.type === nodeType.PATH
+      this.state.type === nodeType.VISITED_NOANIMATION ||
+      this.state.type === nodeType.PATH ||
+      this.state.type === nodeType.PATH_NOANIMATION
     ) {
       new_type = type;
     } else if (this.state.type === type) {
