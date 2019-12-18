@@ -142,7 +142,11 @@ class Grid extends Component {
       this[`node-${node.y}-${node.x}`].setNode(new_type);
       this.grid[node.y][node.x].type = new_type;
     } else {
-      if (node.type === nodeType.DEFAULT) {
+      if (
+        node.type !== nodeType.WALL &&
+        node.type !== nodeType.START &&
+        node.type !== nodeType.END
+      ) {
         const prevX = this.clickedNode.x;
         const prevY = this.clickedNode.y;
         const { x, y } = node;
