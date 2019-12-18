@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Node, { nodeType } from "./Node";
 import { dijkstra, dijkstraPath } from "../algorithms/dijkstra";
+import { astar } from "../algorithms/astar";
 import { dfs } from "../algorithms/dfs";
 import { bfs } from "../algorithms/bfs";
 
@@ -18,6 +19,7 @@ class Grid extends Component {
     this.startNode = this.grid[DEFAULT_START_Y][DEFAULT_START_X];
     this.endNode = this.grid[DEFAULT_END_Y][DEFAULT_END_X];
     this.isMousePressed = false;
+    this.algorithm = null;
     this.clickedNode = null;
   }
 
@@ -55,6 +57,7 @@ class Grid extends Component {
     }
     this.startNode = this.grid[DEFAULT_START_Y][DEFAULT_START_X];
     this.endNode = this.grid[DEFAULT_END_Y][DEFAULT_END_X];
+    this.algorithm = null;
   }
 
   resetGridforVisualize() {
@@ -80,9 +83,13 @@ class Grid extends Component {
     // reset the internal of the grid
     // and clear previous visualization
     this.resetGridforVisualize();
+    this.algorithm = algorithm;
     switch (algorithm) {
       case "Dijkstra":
         this.visualizeDijkstra(speed);
+        break;
+      case "A* Search":
+        this.visualizeAstar(speed);
         break;
       case "Depth First Search":
         this.visualizeDFS(speed);
@@ -101,6 +108,8 @@ class Grid extends Component {
     const nodesInPath = dijkstraPath(this.startNode, this.endNode);
     this.animatePath(visitedNodes, nodesInPath, speed);
   }
+
+  visualizeAstar(speed) {}
 
   visualizeDFS(speed) {
     const visitedNodes = dfs(this.grid, this.startNode, this.endNode);
@@ -128,6 +137,42 @@ class Grid extends Component {
           const node = visitedNodes[i];
           this[`node-${node.y}-${node.x}`].setNode(nodeType.VISITED);
         }, 10 + speed * i);
+      }
+    }
+  }
+
+  adaptAlgorithm(algorithm) {
+    this.resetGridforVisualize();
+    let visitedNodes, nodesInPath;
+    switch (algorithm) {
+      case "Dijkstra":
+        visitedNodes = dijkstra(this.grid, this.startNode, this.endNode);
+        nodesInPath = dijkstraPath(this.startNode, this.endNode);
+        break;
+      case "A* Search":
+        break;
+      case "Depth First Search":
+        visitedNodes = dfs(this.grid, this.startNode, this.endNode);
+        nodesInPath = visitedNodes;
+        break;
+      case "Breadth First Search":
+        visitedNodes = bfs(this.grid, this.startNode, this.endNode);
+        nodesInPath = visitedNodes;
+        break;
+      default:
+        visitedNodes = dijkstra(this.grid, this.startNode, this.endNode);
+        nodesInPath = dijkstraPath(this.startNode, this.endNode);
+        break;
+    }
+
+    for (let i = 0; i < visitedNodes.length + nodesInPath.length; i++) {
+      let node;
+      if (i < visitedNodes.length) {
+        node = visitedNodes[i];
+        this[`node-${node.y}-${node.x}`].setNode(nodeType.VISITED_NOANIMATION);
+      } else {
+        node = nodesInPath[i - visitedNodes.length];
+        this[`node-${node.y}-${node.x}`].setNode(nodeType.PATH_NOANIMATION);
       }
     }
   }
@@ -176,6 +221,10 @@ class Grid extends Component {
         }
         this.clickedNode.x = x;
         this.clickedNode.y = y;
+
+        if (this.algorithm) {
+          this.adaptAlgorithm(this.algorithm);
+        }
       }
     }
   };

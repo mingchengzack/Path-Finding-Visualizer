@@ -1,11 +1,12 @@
 .node {
   width: 25px;
   height: 25px;
-  border: 1px solid rgba(91, 153, 247, 0.918);
+  border: 1px solid rgba(162, 194, 241, 0.918);
   display: inline-block;
 }
 
 .node-start {
+  border: 1px solid green;
   animation-name: startAnimation;
   animation-duration: 1.5s;
   animation-timing-function: ease-out;
@@ -34,6 +35,7 @@
 }
 
 .node-end {
+  border: 1px solid red;
   animation-name: endAnimation;
   animation-duration: 1.5s;
   animation-timing-function: ease-out;
@@ -62,6 +64,7 @@
 }
 
 .node-wall {
+  border: 1px solid rgb(11, 47, 63);
   background-color: rgb(11, 47, 63);
 }
 
@@ -80,6 +83,10 @@
     transform: scale(1);
     background-color: rgb(11, 47, 63);
   }
+}
+
+.node-visited-nonanimated {
+  background-color: rgba(1, 90, 206, 0.75);
 }
 
 .node-visited {
@@ -115,7 +122,13 @@
   }
 }
 
+.node-path-nonanimated {
+  border: 1px solid rgb(248, 248, 83);
+  background-color: rgb(248, 248, 83);
+}
+
 .node-path {
+  border: 1px solid rgb(248, 248, 83);
   animation-name: pathAnimation;
   animation-duration: 1s;
   animation-timing-function: ease-out;
@@ -129,17 +142,17 @@
 @keyframes pathAnimation {
   0% {
     transform: scale(0.6);
-    background-color: yellow;
+    background-color: rgb(248, 248, 83);
   }
 
   50% {
     transform: scale(1.2);
-    background-color: yellow;
+    background-color: rgb(248, 248, 83);
   }
 
   100% {
     transform: scale(1);
-    background-color: yellow;
+    background-color: rgb(248, 248, 83);
   }
 }
 

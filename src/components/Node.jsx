@@ -51,6 +51,10 @@ class Node extends Component {
         ? "node-visited"
         : type === nodeType.PATH
         ? "node-path"
+        : type === nodeType.VISITED_NOANIMATION
+        ? "node-visited-nonanimated"
+        : type === nodeType.PATH_NOANIMATION
+        ? "node-path-nonanimated"
         : "";
     return (
       <div
@@ -71,5 +75,7 @@ export const nodeType = {
   END: 3,
   WALL: 4,
   VISITED: 5,
-  PATH: 6
+  PATH: 6,
+  VISITED_NOANIMATION: 7,
+  PATH_NOANIMATION: 8
 };
