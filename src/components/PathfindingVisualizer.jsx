@@ -83,7 +83,12 @@ class PathfindingVisualizer extends Component {
             />
           </Nav>
         </Navbar>
-        <Grid rows={24} cols={54} onRef={ref => (this.grid = ref)} />
+        <Grid
+          rows={24}
+          cols={54}
+          algorithm={this.state.curAlgorithm}
+          onRef={ref => (this.grid = ref)}
+        />
       </div>
     );
   }

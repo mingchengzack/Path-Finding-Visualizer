@@ -4,7 +4,12 @@ import "./Node.css";
 class Node extends Component {
   constructor(props) {
     super(props);
-    this.state = { x: props.node.x, y: props.node.y, type: props.node.type };
+    this.state = {
+      x: props.node.x,
+      y: props.node.y,
+      type: props.node.type,
+      canModify: true
+    };
   }
 
   componentDidMount() {

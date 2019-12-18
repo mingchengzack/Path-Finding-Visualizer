@@ -13,7 +13,6 @@ export function bfs(grid, startNode, endNode) {
     curNode.isVisited = true;
     if (curNode === endNode) return visitedNodes;
     if (curNode !== startNode) {
-      curNode.type = nodeType.VISITED;
       visitedNodes.push(curNode);
     }
   }

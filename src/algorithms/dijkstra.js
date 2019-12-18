@@ -22,7 +22,6 @@ export function dijkstra(grid, startNode, endNode) {
     closestNode.isVisited = true;
     if (closestNode === endNode) return visitedNodes;
     if (closestNode !== startNode) {
-      closestNode.type = nodeType.VISITED;
       visitedNodes.push(closestNode);
     }
     updateUnvisitedNeighbors(closestNode, grid);
@@ -36,7 +35,6 @@ export function dijkstraPath(startNode, endNode) {
   let currNode = endNode.prevNode;
   while (currNode !== null && currNode !== startNode) {
     nodesInShortestPath.unshift(currNode);
-    currNode.type = nodeType.PATH;
     currNode = currNode.prevNode;
   }
   return nodesInShortestPath;

@@ -21,6 +21,7 @@ class Grid extends Component {
     this.isMousePressed = false;
     this.algorithm = null;
     this.clickedNode = null;
+    this.modfiedNodes = [];
   }
 
   componentDidMount() {
@@ -34,30 +35,19 @@ class Grid extends Component {
   resetGrid() {
     let rows = this.props.rows;
     let cols = this.props.cols;
+    this.algorithm = null;
 
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {
-        const type =
-          j === DEFAULT_START_X && i === DEFAULT_START_Y
-            ? nodeType.START
-            : j === DEFAULT_END_X && i === DEFAULT_END_Y
-            ? nodeType.END
-            : nodeType.DEFAULT;
-        let node = {
-          x: j,
-          y: i,
-          type: type,
-          isVisited: false,
-          distance: Infinity,
-          prevNode: null
-        };
-        this.grid[i][j] = node;
-        this[`node-${i}-${j}`].setNode(type);
+        if (
+          this.grid[i][j].type !== nodeType.START &&
+          this.grid[i][j].type !== nodeType.END
+        ) {
+          this.grid[i][j].type = nodeType.DEFAULT;
+          this[`node-${i}-${j}`].setNode(nodeType.DEFAULT);
+        }
       }
     }
-    this.startNode = this.grid[DEFAULT_START_Y][DEFAULT_START_X];
-    this.endNode = this.grid[DEFAULT_END_Y][DEFAULT_END_X];
-    this.algorithm = null;
   }
 
   resetGridforVisualize() {
@@ -73,6 +63,7 @@ class Grid extends Component {
           this.grid[i][j].type === nodeType.VISITED ||
           this.grid[i][j].type === nodeType.PATH
         ) {
+          this.grid[i][j].type = nodeType.DEFAULT;
           this[`node-${i}-${j}`].setNode(nodeType.DEFAULT);
         }
       }
@@ -93,16 +84,18 @@ class Grid extends Component {
   adaptAlgorithm() {
     this.resetGridforVisualize();
     const [visitedNodes, nodesInPath] = this.calculateVisualizedNodes(
-      this.algorithm
+      this.props.algorithm
     );
 
     for (let i = 0; i < visitedNodes.length + nodesInPath.length; i++) {
       let node;
       if (i < visitedNodes.length) {
         node = visitedNodes[i];
+        node.type = nodeType.VISITED;
         this[`node-${node.y}-${node.x}`].setNode(nodeType.VISITED_NOANIMATION);
       } else {
         node = nodesInPath[i - visitedNodes.length];
+        node.type = nodeType.PATH;
         this[`node-${node.y}-${node.x}`].setNode(nodeType.PATH_NOANIMATION);
       }
     }
@@ -140,6 +133,7 @@ class Grid extends Component {
           for (let j = 0; j < nodesInPath.length; j++) {
             setTimeout(() => {
               const node = nodesInPath[j];
+              node.type = nodeType.PATH;
               this[`node-${node.y}-${node.x}`].setNode(nodeType.PATH);
             }, 10 + 4 * speed * j);
           }
@@ -147,6 +141,7 @@ class Grid extends Component {
       } else {
         setTimeout(() => {
           const node = visitedNodes[i];
+          node.type = nodeType.VISITED;
           this[`node-${node.y}-${node.x}`].setNode(nodeType.VISITED);
         }, 10 + speed * i);
       }
@@ -157,10 +152,20 @@ class Grid extends Component {
     this.isMousePressed = true;
     this.clickedNode = node;
     this.grid[node.y][node.x].type = type;
+
+    // can only modify the node once (for non-start, non-end nodes)
+    if (
+      this.clickedNode.type !== nodeType.START &&
+      this.clickedNode.type !== nodeType.END
+    ) {
+      node.canModify = false;
+      this.modfiedNodes.push(node);
+    }
   };
 
   handleMouseEnter = (node, type) => {
-    if (!this.isMousePressed) return;
+    // can only modify the node once
+    if (!this.isMousePressed || !node.canModify) return;
     if (
       this.clickedNode.type !== nodeType.START &&
       this.clickedNode.type !== nodeType.END
@@ -177,8 +182,13 @@ class Grid extends Component {
       } else if (node.type === type) {
         new_type = nodeType.DEFAULT;
       }
+
       this[`node-${node.y}-${node.x}`].setNode(new_type);
       this.grid[node.y][node.x].type = new_type;
+
+      // set the flag so that the node cannot be modified
+      node.canModify = false;
+      this.modfiedNodes.push(node);
     } else {
       if (
         node.type !== nodeType.WALL &&
@@ -210,6 +220,13 @@ class Grid extends Component {
   handleMouseUp = () => {
     this.isMousePressed = false;
     this.clickedNode = null;
+
+    // reset all the modified nodes to can-modifiy
+    for (let i = 0; i < this.modfiedNodes.length; i++) {
+      const node = this.modfiedNodes[i];
+      this[`node-${node.y}-${node.x}`].setState({ canModify: true });
+    }
+    this.modfiedNodes = [];
   };
 
   constructInitGrid() {
