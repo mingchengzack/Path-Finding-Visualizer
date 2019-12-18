@@ -14,7 +14,15 @@
 }
 
 .node-wall {
+  background-color: grey;
+}
+
+.node-visited {
   background-color: purple;
+}
+
+.node-path {
+  background-color: yellow;
 }
 
 #row {

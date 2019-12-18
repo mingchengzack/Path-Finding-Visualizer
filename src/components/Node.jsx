@@ -21,7 +21,10 @@ class Node extends Component {
 
   handleChangeNode = type => {
     let new_type = this.state.type;
-    if (this.state.type === nodeType.DEFAULT) {
+    if (
+      this.state.type !== nodeType.START &&
+      this.state.type !== nodeType.END
+    ) {
       new_type = type;
     } else if (this.state.type === type) {
       new_type = nodeType.DEFAULT;
@@ -43,6 +46,10 @@ class Node extends Component {
         ? "node-end"
         : type === nodeType.WALL
         ? "node-wall"
+        : type === nodeType.VISITED
+        ? "node-visited"
+        : type === nodeType.PATH
+        ? "node-path"
         : "";
     return (
       <div
@@ -61,5 +68,7 @@ export const nodeType = {
   DEFAULT: 1,
   START: 2,
   END: 3,
-  WALL: 4
+  WALL: 4,
+  VISITED: 5,
+  PATH: 6
 };

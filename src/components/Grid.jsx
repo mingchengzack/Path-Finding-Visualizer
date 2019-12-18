@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Node, { nodeType } from "./Node";
+import { dijkstra, getNodesInShortestPath } from "../algorithms/dijkstra";
 
 import "./Node.css";
 
@@ -12,6 +13,8 @@ class Grid extends Component {
   constructor(props) {
     super(props);
     this.grid = this.constructInitGrid();
+    this.startNode = this.grid[DEFAULT_START_Y][DEFAULT_START_X];
+    this.endNode = this.grid[DEFAULT_END_Y][DEFAULT_END_X];
     this.isMousePressed = false;
     this.clickedNode = null;
   }
@@ -39,11 +42,82 @@ class Grid extends Component {
         let node = {
           x: j,
           y: i,
-          type: type
+          type: type,
+          isVisited: false,
+          distance: Infinity,
+          prevNode: null
         };
         this.grid[i][j] = node;
         this[`node-${i}-${j}`].setNode(type);
       }
+    }
+    this.startNode = this.grid[DEFAULT_START_Y][DEFAULT_START_X];
+    this.endNode = this.grid[DEFAULT_END_Y][DEFAULT_END_X];
+  }
+
+  resetGridforVisualize() {
+    let rows = this.props.rows;
+    let cols = this.props.cols;
+
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        this.grid[i][j].prevNode = null;
+        this.grid[i][j].distance = Infinity;
+        this.grid[i][j].isVisited = false;
+        if (
+          this.grid[i][j].type === nodeType.VISITED ||
+          this.grid[i][j].type === nodeType.PATH
+        ) {
+          this[`node-${i}-${j}`].setNode(nodeType.DEFAULT);
+        }
+      }
+    }
+  }
+
+  visualize(algorithm, speed) {
+    // reset the internal of the grid
+    // and clear previous visualization
+    this.resetGridforVisualize();
+    switch (algorithm) {
+      case "Dijkstra":
+        this.visualizeDijkstra(speed);
+        break;
+      default:
+        this.visualizeDijkstra(speed);
+        break;
+    }
+  }
+
+  visualizeDijkstra(speed) {
+    const visitedNodes = dijkstra(this.grid, this.startNode, this.endNode);
+    const nodesInShortestPath = getNodesInShortestPath(
+      this.startNode,
+      this.endNode
+    );
+    this.animateDijkstra(visitedNodes, nodesInShortestPath, speed);
+  }
+
+  animateDijkstra(visitedNodes, nodesInShortestPath, speed) {
+    for (let i = 0; i <= visitedNodes.length; i++) {
+      if (i === visitedNodes.length) {
+        setTimeout(() => {
+          this.animateShortestPath(nodesInShortestPath);
+        }, speed * i);
+      } else {
+        setTimeout(() => {
+          const node = visitedNodes[i];
+          this[`node-${node.y}-${node.x}`].setNode(nodeType.VISITED);
+        }, speed * i);
+      }
+    }
+  }
+
+  animateShortestPath(nodesInShortestPath) {
+    for (let i = 0; i < nodesInShortestPath.length; i++) {
+      setTimeout(() => {
+        const node = nodesInShortestPath[i];
+        this[`node-${node.y}-${node.x}`].setNode(nodeType.PATH);
+      }, 50 * i);
     }
   }
 
@@ -60,7 +134,7 @@ class Grid extends Component {
       this.clickedNode.type !== nodeType.END
     ) {
       let new_type = node.type;
-      if (node.type === nodeType.DEFAULT) {
+      if (node.type !== nodeType.START && node.type !== nodeType.END) {
         new_type = type;
       } else if (node.type === type) {
         new_type = nodeType.DEFAULT;
@@ -76,6 +150,11 @@ class Grid extends Component {
         this.grid[prevY][prevX].type = nodeType.DEFAULT;
         this[`node-${y}-${x}`].setNode(this.clickedNode.type);
         this.grid[y][x].type = this.clickedNode.type;
+        if (this.grid[y][x].type === nodeType.START) {
+          this.startNode = this.grid[y][x];
+        } else {
+          this.endNode = this.grid[y][x];
+        }
         this.clickedNode.x = x;
         this.clickedNode.y = y;
       }
@@ -95,15 +174,19 @@ class Grid extends Component {
     for (let i = 0; i < rows; i++) {
       let row = [];
       for (let j = 0; j < cols; j++) {
+        const type =
+          j === DEFAULT_START_X && i === DEFAULT_START_Y
+            ? nodeType.START
+            : j === DEFAULT_END_X && i === DEFAULT_END_Y
+            ? nodeType.END
+            : nodeType.DEFAULT;
         let node = {
           x: j,
           y: i,
-          type:
-            j === DEFAULT_START_X && i === DEFAULT_START_Y
-              ? nodeType.START
-              : j === DEFAULT_END_X && i === DEFAULT_END_Y
-              ? nodeType.END
-              : nodeType.DEFAULT
+          type: type,
+          isVisited: false,
+          distance: Infinity,
+          prevNode: null
         };
         row.push(node);
       }

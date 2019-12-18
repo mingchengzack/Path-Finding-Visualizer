@@ -12,14 +12,20 @@ const algorithms = [
   "Breadth First Search"
 ];
 
+const speeds = ["Fast", "Medium", "Slow"];
+
 class PathfindingVisualizer extends Component {
   constructor() {
     super();
-    this.state = { curAlgorithm: "Dijkstra", reset: false };
+    this.state = { curAlgorithm: "Dijkstra", curSpeed: "Fast" };
   }
 
   handleChangeAlgorithm = algorithm => {
     this.setState({ curAlgorithm: algorithm });
+  };
+
+  handleChangeSpeed = speedName => {
+    this.setState({ curSpeed: speedName });
   };
 
   handleReset = () => {
@@ -27,7 +33,22 @@ class PathfindingVisualizer extends Component {
   };
 
   handleVisualize = () => {
-    console.log("visualize");
+    let speed = 3;
+    switch (this.state.curSpeed) {
+      case "Fast":
+        speed = 3;
+        break;
+      case "Medium":
+        speed = 7;
+        break;
+      case "Slow":
+        speed = 11;
+        break;
+      default:
+        speed = 3;
+        break;
+    }
+    this.grid.visualize(this.state.curAlgorithm, speed);
   };
 
   render() {
@@ -45,6 +66,13 @@ class PathfindingVisualizer extends Component {
               name={"Reset Board"}
               type={"button"}
               onClick={this.handleReset}
+            />
+            <Navitem
+              name={"Speed"}
+              type={"dropdown"}
+              itemList={speeds}
+              curItem={this.state.curSpeed}
+              onChangeItem={this.handleChangeSpeed}
             />
             <Navitem
               name={"Algorithms"}
