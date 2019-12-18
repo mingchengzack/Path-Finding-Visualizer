@@ -84,65 +84,31 @@ class Grid extends Component {
     // and clear previous visualization
     this.resetGridforVisualize();
     this.algorithm = algorithm;
-    switch (algorithm) {
-      case "Dijkstra":
-        this.visualizeDijkstra(speed);
-        break;
-      case "A* Search":
-        this.visualizeAstar(speed);
-        break;
-      case "Depth First Search":
-        this.visualizeDFS(speed);
-        break;
-      case "Breadth First Search":
-        this.visualizeBFS(speed);
-        break;
-      default:
-        this.visualizeDijkstra(speed);
-        break;
-    }
+    const [visitedNodes, nodesInPath] = this.calculateVisualizedNodes(
+      algorithm
+    );
+    this.animateNodes(visitedNodes, nodesInPath, speed);
   }
 
-  visualizeDijkstra(speed) {
-    const visitedNodes = dijkstra(this.grid, this.startNode, this.endNode);
-    const nodesInPath = dijkstraPath(this.startNode, this.endNode);
-    this.animatePath(visitedNodes, nodesInPath, speed);
-  }
+  adaptAlgorithm() {
+    this.resetGridforVisualize();
+    const [visitedNodes, nodesInPath] = this.calculateVisualizedNodes(
+      this.algorithm
+    );
 
-  visualizeAstar(speed) {}
-
-  visualizeDFS(speed) {
-    const visitedNodes = dfs(this.grid, this.startNode, this.endNode);
-    this.animatePath(visitedNodes, visitedNodes, speed);
-  }
-
-  visualizeBFS(speed) {
-    const visitedNodes = bfs(this.grid, this.startNode, this.endNode);
-    this.animatePath(visitedNodes, visitedNodes, speed);
-  }
-
-  animatePath(visitedNodes, nodesInPath, speed) {
-    for (let i = 0; i <= visitedNodes.length; i++) {
-      if (i === visitedNodes.length) {
-        setTimeout(() => {
-          for (let j = 0; j < nodesInPath.length; j++) {
-            setTimeout(() => {
-              const node = nodesInPath[j];
-              this[`node-${node.y}-${node.x}`].setNode(nodeType.PATH);
-            }, 10 + 2 * speed * j);
-          }
-        }, 10 + speed * i);
+    for (let i = 0; i < visitedNodes.length + nodesInPath.length; i++) {
+      let node;
+      if (i < visitedNodes.length) {
+        node = visitedNodes[i];
+        this[`node-${node.y}-${node.x}`].setNode(nodeType.VISITED_NOANIMATION);
       } else {
-        setTimeout(() => {
-          const node = visitedNodes[i];
-          this[`node-${node.y}-${node.x}`].setNode(nodeType.VISITED);
-        }, 10 + speed * i);
+        node = nodesInPath[i - visitedNodes.length];
+        this[`node-${node.y}-${node.x}`].setNode(nodeType.PATH_NOANIMATION);
       }
     }
   }
 
-  adaptAlgorithm(algorithm) {
-    this.resetGridforVisualize();
+  calculateVisualizedNodes(algorithm) {
     let visitedNodes, nodesInPath;
     switch (algorithm) {
       case "Dijkstra":
@@ -164,15 +130,25 @@ class Grid extends Component {
         nodesInPath = dijkstraPath(this.startNode, this.endNode);
         break;
     }
+    return [visitedNodes, nodesInPath];
+  }
 
-    for (let i = 0; i < visitedNodes.length + nodesInPath.length; i++) {
-      let node;
-      if (i < visitedNodes.length) {
-        node = visitedNodes[i];
-        this[`node-${node.y}-${node.x}`].setNode(nodeType.VISITED_NOANIMATION);
+  animateNodes(visitedNodes, nodesInPath, speed) {
+    for (let i = 0; i <= visitedNodes.length; i++) {
+      if (i === visitedNodes.length) {
+        setTimeout(() => {
+          for (let j = 0; j < nodesInPath.length; j++) {
+            setTimeout(() => {
+              const node = nodesInPath[j];
+              this[`node-${node.y}-${node.x}`].setNode(nodeType.PATH);
+            }, 10 + 4 * speed * j);
+          }
+        }, 10 + speed * i);
       } else {
-        node = nodesInPath[i - visitedNodes.length];
-        this[`node-${node.y}-${node.x}`].setNode(nodeType.PATH_NOANIMATION);
+        setTimeout(() => {
+          const node = visitedNodes[i];
+          this[`node-${node.y}-${node.x}`].setNode(nodeType.VISITED);
+        }, 10 + speed * i);
       }
     }
   }
@@ -223,7 +199,7 @@ class Grid extends Component {
         this.clickedNode.y = y;
 
         if (this.algorithm) {
-          this.adaptAlgorithm(this.algorithm);
+          this.adaptAlgorithm();
         }
       }
     }
