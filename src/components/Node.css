@@ -62,29 +62,29 @@
 }
 
 .node-wall {
-  background: grey;
+  background-color: rgb(11, 47, 63);
 }
 
 @keyframes wallAnimation {
   0% {
     transform: scale(0.6);
-    background-color: grey;
+    background-color: rgb(11, 47, 63);
   }
 
   50% {
     transform: scale(1.2);
-    background-color: grey;
+    background-color: rgb(11, 47, 63);
   }
 
   100% {
     transform: scale(1);
-    background-color: grey;
+    background-color: rgb(11, 47, 63);
   }
 }
 
 .node-visited {
   animation-name: visitedAnimation;
-  animation-duration: 1.5s;
+  animation-duration: 0.3s;
   animation-timing-function: ease-out;
   animation-delay: 0;
   animation-direction: alternate;
@@ -95,24 +95,29 @@
 
 @keyframes visitedAnimation {
   0% {
-    transform: scale(0.6);
-    background-color: rgba(0, 190, 218, 0.75);
+    transform: scale(0.3);
+    background-color: rgba(82, 82, 189, 0.75);
+    border-radius: 100%;
   }
 
   50% {
+    background-color: rgba(255, 127, 77, 0.75);
+  }
+
+  75% {
     transform: scale(1.2);
-    background-color: rgba(0, 190, 218, 0.75);
+    background-color: rgba(0, 217, 159, 0.75);
   }
 
   100% {
     transform: scale(1);
-    background-color: rgba(0, 190, 218, 0.75);
+    background-color: rgba(1, 90, 206, 0.75);
   }
 }
 
 .node-path {
   animation-name: pathAnimation;
-  animation-duration: 1.5s;
+  animation-duration: 1s;
   animation-timing-function: ease-out;
   animation-delay: 0;
   animation-direction: alternate;

@@ -105,14 +105,14 @@ class Grid extends Component {
             setTimeout(() => {
               const node = nodesInShortestPath[j];
               this[`node-${node.y}-${node.x}`].setNode(nodeType.PATH);
-            }, 50 * j);
+            }, 20 + 50 * j);
           }
-        }, speed * i);
+        }, speed + speed * i);
       } else {
         setTimeout(() => {
           const node = visitedNodes[i];
           this[`node-${node.y}-${node.x}`].setNode(nodeType.VISITED);
-        }, speed * i);
+        }, 20 + speed * i);
       }
     }
   }
