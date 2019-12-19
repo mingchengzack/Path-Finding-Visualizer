@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1a551e45d7469ea733d5763490baad22",
+    "revision": "504157c59c45867c515edcf0dd197ee2",
     "url": "/Path-Finding-Visualizer/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Path-Finding-Visualizer/static/css/2.31b9d3d8.chunk.css"
   },
   {
-    "revision": "60936072b8f859d20ecf",
-    "url": "/Path-Finding-Visualizer/static/css/main.2c28ae96.chunk.css"
+    "revision": "b96a3136578462284601",
+    "url": "/Path-Finding-Visualizer/static/css/main.df4df837.chunk.css"
   },
   {
     "revision": "ea54c4e0171f6919a959",
@@ -20,12 +20,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Path-Finding-Visualizer/static/js/2.d577cf01.chunk.js.LICENSE"
   },
   {
-    "revision": "60936072b8f859d20ecf",
-    "url": "/Path-Finding-Visualizer/static/js/main.1b7d0e67.chunk.js"
+    "revision": "b96a3136578462284601",
+    "url": "/Path-Finding-Visualizer/static/js/main.61716f61.chunk.js"
   },
   {
     "revision": "d3343f0ae429f593b03e",
     "url": "/Path-Finding-Visualizer/static/js/runtime-main.e66d59bc.js"
+  },
+  {
+    "revision": "74c169e6d615a006ea4a64dcbe4c1937",
+    "url": "/Path-Finding-Visualizer/static/media/end.74c169e6.svg"
   },
   {
     "revision": "5cb7edfceb233100075dc9a1e12e8da3",
@@ -122,5 +126,21 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "ebf6d1640ccddb99fb49f73c052c55a8",
     "url": "/Path-Finding-Visualizer/static/media/roboto-latin-900italic.ebf6d164.woff2"
+  },
+  {
+    "revision": "d2608c25d19da2ed7da0a91047dd2549",
+    "url": "/Path-Finding-Visualizer/static/media/start.d2608c25.svg"
+  },
+  {
+    "revision": "0ca6760a373a812b21a4e8328b37180c",
+    "url": "/Path-Finding-Visualizer/static/media/w3.0ca6760a.svg"
+  },
+  {
+    "revision": "3842d7b4eac8f34c3f3393ada625e1d8",
+    "url": "/Path-Finding-Visualizer/static/media/w5.3842d7b4.svg"
+  },
+  {
+    "revision": "40efc72d0716308adc8a77b483616974",
+    "url": "/Path-Finding-Visualizer/static/media/w8.40efc72d.svg"
   }
 ]);
