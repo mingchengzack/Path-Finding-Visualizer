@@ -5,15 +5,16 @@ export function bfs(grid, startNode, endNode) {
   const visitedNodes = [];
   let unvisitedNodes = [];
   unvisitedNodes.push(startNode);
+  startNode.isVisited = true;
   while (unvisitedNodes.length !== 0) {
     // get next cur node
     const curNode = unvisitedNodes.shift();
 
+    // reach goal
+    if (curNode === endNode) return [visitedNodes, true];
+
     // add neighbors to unvisitedNodes
     updateUnvisitedNeighbors(curNode, grid, unvisitedNodes);
-    curNode.isVisited = true;
-
-    if (curNode === endNode) return [visitedNodes, true];
 
     // excludes start node  and end node for visualization
     if (curNode !== startNode) {

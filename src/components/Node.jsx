@@ -8,6 +8,7 @@ class Node extends Component {
       x: props.node.x,
       y: props.node.y,
       type: props.node.type,
+      weight: props.weight,
       canModify: true
     };
   }
@@ -24,7 +25,7 @@ class Node extends Component {
     e.preventDefault();
   };
 
-  handleChangeNode = type => {
+  toggleWall() {
     let new_type = this.state.type;
     if (
       this.state.type === nodeType.DEFAULT ||
@@ -33,12 +34,47 @@ class Node extends Component {
       this.state.type === nodeType.PATH ||
       this.state.type === nodeType.PATH_NOANIMATION
     ) {
-      new_type = type;
-    } else if (this.state.type === type) {
+      new_type = nodeType.WALL;
+      this.setState({ weight: weightType.DEFAULT });
+    } else if (
+      this.state.type === nodeType.WALL ||
+      this.state.type === nodeType.WEIGHT_THREE ||
+      this.state.type === nodeType.WEIGHT_FIVE ||
+      this.state.type === nodeType.WEIGHT_EIGHT
+    ) {
       new_type = nodeType.DEFAULT;
     }
     this.setState({ type: new_type });
+    return new_type;
+  }
+
+  toggleWeight() {
+    if (this.state.weight === weightType.DEFAULT) {
+      if (this.state.type !== nodeType.WALL) {
+        this.setState({ weight: this.props.weight });
+      }
+    } else {
+      this.setState({ weight: weightType.DEFAULT });
+    }
+  }
+
+  handleChangeNode = () => {
+    let new_type = this.state.type;
+    if (
+      this.state.type !== nodeType.START &&
+      this.state.type !== nodeType.END
+    ) {
+      if (this.props.weight === weightType.DEFAULT) {
+        new_type = this.toggleWall();
+      } else {
+        this.toggleWeight();
+      }
+    }
     this.props.onMouseDown(this.state, new_type);
+  };
+
+  setWeightType = weight => {
+    this.setState({ weight });
   };
 
   setNode = type => {
@@ -63,14 +99,27 @@ class Node extends Component {
         : type === nodeType.PATH_NOANIMATION
         ? "node-path-nonanimated"
         : "";
+
+    let { weight } = this.state;
+    let weightname =
+      weight === weightType.WEIGHT_THREE
+        ? "node-three"
+        : weight === weightType.WEIGHT_FIVE
+        ? "node-five"
+        : weight === weightType.WEIGHT_EIGHT
+        ? "node-eight"
+        : "";
+
     return (
       <div
         className={`node ${typename}`}
-        onMouseDown={() => this.handleChangeNode(nodeType.WALL)}
-        onMouseEnter={() => this.props.onMouseEnter(this.state, nodeType.WALL)}
+        onMouseDown={() => this.handleChangeNode()}
+        onMouseEnter={() => this.props.onMouseEnter(this.state)}
         onMouseUp={() => this.props.onMouseUp()}
         onDragStart={this.preventDragHandler}
-      ></div>
+      >
+        <td className={`${weightname}`}></td>
+      </div>
     );
   }
 }
@@ -85,4 +134,11 @@ export const nodeType = {
   PATH: 6,
   VISITED_NOANIMATION: 7,
   PATH_NOANIMATION: 8
+};
+
+export const weightType = {
+  DEFAULT: 1,
+  WEIGHT_THREE: 2,
+  WEIGHT_FIVE: 3,
+  WEIGHT_EIGHT: 4
 };

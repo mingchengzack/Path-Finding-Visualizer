@@ -12,12 +12,18 @@ const algorithms = [
   "Breadth First Search"
 ];
 
+const weights = ["Wall", "Weight 3", "Weight 5", "Weight 8"];
+
 const speeds = ["Fast", "Medium", "Slow"];
 
 class PathfindingVisualizer extends Component {
   constructor() {
     super();
-    this.state = { curAlgorithm: "Dijkstra", curSpeed: "Fast" };
+    this.state = {
+      curAlgorithm: "Dijkstra",
+      curSpeed: "Fast",
+      curWeight: "Wall"
+    };
   }
 
   handleChangeAlgorithm = algorithm => {
@@ -26,6 +32,11 @@ class PathfindingVisualizer extends Component {
 
   handleChangeSpeed = speedName => {
     this.setState({ curSpeed: speedName });
+  };
+
+  handleChangeWeight = weightname => {
+    this.setState({ curWeight: weightname });
+    this.grid.changeWeightType(weightname);
   };
 
   handleReset = () => {
@@ -68,11 +79,11 @@ class PathfindingVisualizer extends Component {
               onClick={this.handleReset}
             />
             <Navitem
-              name={"Speed"}
+              name={"Add Node"}
               type={"dropdown"}
-              itemList={speeds}
-              curItem={this.state.curSpeed}
-              onChangeItem={this.handleChangeSpeed}
+              itemList={weights}
+              curItem={this.state.curWeight}
+              onChangeItem={this.handleChangeWeight}
             />
             <Navitem
               name={"Algorithms"}
@@ -81,12 +92,20 @@ class PathfindingVisualizer extends Component {
               curItem={this.state.curAlgorithm}
               onChangeItem={this.handleChangeAlgorithm}
             />
+            <Navitem
+              name={"Speed"}
+              type={"dropdown"}
+              itemList={speeds}
+              curItem={this.state.curSpeed}
+              onChangeItem={this.handleChangeSpeed}
+            />
           </Nav>
         </Navbar>
         <Grid
           rows={24}
           cols={54}
           algorithm={this.state.curAlgorithm}
+          weightname={this.state.curWeight}
           onRef={ref => (this.grid = ref)}
         />
       </div>

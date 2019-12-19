@@ -9,9 +9,6 @@ export function dfs(grid, startNode, endNode) {
     // get next cur node
     const curNode = unvisitedNodes.shift();
 
-    // add neighbors to unvisitedNodes
-    updateUnvisitedNeighbors(curNode, grid, unvisitedNodes);
-
     // stack may contain two same nodes
     if (!curNode.isVisited) {
       curNode.isVisited = true;
@@ -21,6 +18,9 @@ export function dfs(grid, startNode, endNode) {
       if (curNode !== startNode) {
         visitedNodes.push(curNode);
       }
+
+      // add neighbors to unvisitedNodes
+      updateUnvisitedNeighbors(curNode, grid, unvisitedNodes);
     }
   }
 

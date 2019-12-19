@@ -45,13 +45,6 @@
   box-shadow: none;
 }
 
-/* 
-#dropdown-toggle:hover:focus {
-  background-color: #1abc9c;
-  color: white;
-  box-shadow: none;
-} */
-
 #dropdown-item {
   font-family: "Roboto";
 }

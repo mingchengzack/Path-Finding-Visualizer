@@ -55,6 +55,90 @@
   }
 }
 
+.node-three {
+  width: 24px;
+  height: 23px;
+  margin-left: -1px;
+  display: inline-block;
+  background: url(../imgs/three.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: threeAnimation;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes threeAnimation {
+  0% {
+    transform: scale(0.6);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.node-five {
+  width: 24px;
+  height: 23px;
+  margin-left: -1px;
+  display: inline-block;
+  background: url(../imgs/five.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: threeAnimation;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fiveAnimation {
+  0% {
+    transform: scale(0.6);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.node-eight {
+  width: 24px;
+  height: 23px;
+  margin-left: -1px;
+  display: inline-block;
+  background: url(../imgs/eight.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: threeAnimation;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes eightAnimation {
+  0% {
+    transform: scale(0.6);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 .node-wall {
   border: 1px solid rgb(11, 47, 63);
   background-color: rgb(11, 47, 63);
