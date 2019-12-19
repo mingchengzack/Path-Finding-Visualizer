@@ -20,12 +20,12 @@ export function dijkstra(grid, startNode, endNode) {
     if (closestNode.distance === Infinity) return visitedNodes;
 
     closestNode.isVisited = true;
+    visitedNodes.push(closestNode);
+
+    // reach goal
     if (closestNode === endNode) return visitedNodes;
 
-    // excludes start node for visualization
-    if (closestNode !== startNode) {
-      visitedNodes.push(closestNode);
-    }
+    // update distance for neighbors
     updateUnvisitedNeighbors(closestNode, grid);
   }
   return visitedNodes;
@@ -34,10 +34,9 @@ export function dijkstra(grid, startNode, endNode) {
 // backtracks from the endNode to find the shortest path
 export function dijkstraPath(startNode, endNode) {
   const nodesInShortestPath = [];
-  let currNode = endNode.prevNode; // excludes end node for visualization
+  let currNode = endNode;
 
-  // excludes start node for visualization
-  while (currNode !== null && currNode !== startNode) {
+  while (currNode !== null) {
     nodesInShortestPath.unshift(currNode);
     currNode = currNode.prevNode;
   }

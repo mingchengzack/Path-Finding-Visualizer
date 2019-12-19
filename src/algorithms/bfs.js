@@ -9,17 +9,13 @@ export function bfs(grid, startNode, endNode) {
   while (unvisitedNodes.length !== 0) {
     // get next cur node
     const curNode = unvisitedNodes.shift();
+    visitedNodes.push(curNode);
 
     // reach goal
     if (curNode === endNode) return [visitedNodes, true];
 
     // add neighbors to unvisitedNodes
     updateUnvisitedNeighbors(curNode, grid, unvisitedNodes);
-
-    // excludes start node  and end node for visualization
-    if (curNode !== startNode) {
-      visitedNodes.push(curNode);
-    }
   }
 
   return [visitedNodes, false];

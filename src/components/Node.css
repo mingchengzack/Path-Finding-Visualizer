@@ -9,7 +9,6 @@
 
 .node-start {
   background: url(../imgs/start.svg);
-  background-color: rgb(248, 248, 83);
   border: none;
   animation-name: startAnimation;
   animation-duration: 0.5s;
@@ -19,23 +18,19 @@
 @keyframes startAnimation {
   0% {
     transform: scale(0.8);
-    background-color: rgb(248, 248, 83);
   }
 
   50% {
     transform: scale(1.2);
-    background-color: rgb(248, 248, 83);
   }
 
   100% {
     transform: scale(1);
-    background-color: rgb(248, 248, 83);
   }
 }
 
 .node-end {
   background: url(../imgs/end.svg);
-  background-color: rgb(248, 248, 83);
   border: none;
   animation-name: endAnimation;
   animation-duration: 0.5s;
@@ -45,17 +40,14 @@
 @keyframes endAnimation {
   0% {
     transform: scale(0.8);
-    background-color: rgb(248, 248, 83);
   }
 
   50% {
     transform: scale(1.2);
-    background-color: rgb(248, 248, 83);
   }
 
   100% {
     transform: scale(1);
-    background-color: rgb(248, 248, 83);
   }
 }
 
@@ -168,11 +160,11 @@
   }
 }
 
-.node-visited-nonanimated {
+.visited-noanimation {
   background-color: rgba(0, 190, 218, 0.75);
 }
 
-.node-visited {
+.visited {
   animation-name: visitedAnimation;
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
@@ -200,12 +192,12 @@
   }
 }
 
-.node-path-nonanimated {
+.path-noanimation {
   border: 1px solid rgb(248, 248, 83);
   background-color: rgb(248, 248, 83);
 }
 
-.node-path {
+.path {
   border: 1px solid rgb(248, 248, 83);
   animation-name: pathAnimation;
   animation-duration: 1s;

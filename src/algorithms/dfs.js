@@ -12,12 +12,8 @@ export function dfs(grid, startNode, endNode) {
     // stack may contain two same nodes
     if (!curNode.isVisited) {
       curNode.isVisited = true;
+      visitedNodes.push(curNode);
       if (curNode === endNode) return [visitedNodes, true];
-
-      // excludes start node  and end node for visualization
-      if (curNode !== startNode) {
-        visitedNodes.push(curNode);
-      }
 
       // add neighbors to unvisitedNodes
       updateUnvisitedNeighbors(curNode, grid, unvisitedNodes);

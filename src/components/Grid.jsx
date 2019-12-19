@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Node, { nodeType, weightType } from "./Node";
+import Node, { nodeType, weightType, animationType } from "./Node";
 import { dijkstra, dijkstraPath } from "../algorithms/dijkstra";
 import { astar } from "../algorithms/astar";
 import { dfs } from "../algorithms/dfs";
@@ -46,8 +46,9 @@ class Grid extends Component {
           this.grid[i][j].type = nodeType.DEFAULT;
           this.grid[i][j].weight = 1;
           this[`node-${i}-${j}`].setNode(nodeType.DEFAULT);
-          this[`node-${i}-${j}`].setWeightType(weightType.DEFAULT);
         }
+        this[`node-${i}-${j}`].setWeightType(weightType.DEFAULT);
+        this[`node-${i}-${j}`].setAnimation(animationType.DEFAULT);
       }
     }
   }
@@ -61,13 +62,7 @@ class Grid extends Component {
         this.grid[i][j].prevNode = null;
         this.grid[i][j].distance = Infinity;
         this.grid[i][j].isVisited = false;
-        if (
-          this.grid[i][j].type === nodeType.VISITED ||
-          this.grid[i][j].type === nodeType.PATH
-        ) {
-          this.grid[i][j].type = nodeType.DEFAULT;
-          this[`node-${i}-${j}`].setNode(nodeType.DEFAULT);
-        }
+        this[`node-${i}-${j}`].setAnimation(animationType.DEFAULT);
       }
     }
   }
@@ -93,12 +88,14 @@ class Grid extends Component {
       let node;
       if (i < visitedNodes.length) {
         node = visitedNodes[i];
-        node.type = nodeType.VISITED;
-        this[`node-${node.y}-${node.x}`].setNode(nodeType.VISITED_NOANIMATION);
+        this[`node-${node.y}-${node.x}`].setAnimation(
+          animationType.VISITED_NOANIMATION
+        );
       } else {
         node = nodesInPath[i - visitedNodes.length];
-        node.type = nodeType.PATH;
-        this[`node-${node.y}-${node.x}`].setNode(nodeType.PATH_NOANIMATION);
+        this[`node-${node.y}-${node.x}`].setAnimation(
+          animationType.PATH_NOANIMATION
+        );
       }
     }
   }
@@ -135,16 +132,14 @@ class Grid extends Component {
           for (let j = 0; j < nodesInPath.length; j++) {
             setTimeout(() => {
               const node = nodesInPath[j];
-              node.type = nodeType.PATH;
-              this[`node-${node.y}-${node.x}`].setNode(nodeType.PATH);
+              this[`node-${node.y}-${node.x}`].setAnimation(animationType.PATH);
             }, 10 + 2 * speed * j);
           }
         }, 10 + speed * i);
       } else {
         setTimeout(() => {
           const node = visitedNodes[i];
-          node.type = nodeType.VISITED;
-          this[`node-${node.y}-${node.x}`].setNode(nodeType.VISITED);
+          this[`node-${node.y}-${node.x}`].setAnimation(animationType.VISITED);
         }, 10 + speed * i);
       }
     }
