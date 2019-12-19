@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { Dropdown } from "react-bootstrap";
+import "./Navbar.css";
 
 class Navitem extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class Navitem extends Component {
     if (type === "button") {
       return (
         <li>
-          <Button variant="success" onClick={() => this.props.onClick()}>
+          <Button id="button" onClick={() => this.props.onClick()}>
             {this.state.name}
           </Button>
         </li>
@@ -22,8 +23,8 @@ class Navitem extends Component {
       return (
         <li>
           <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-              {this.state.name + " : " + this.props.curItem}
+            <Dropdown.Toggle id="dropdown-toggle">
+              {this.state.name + " : " + this.props.curItem + "  "}
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
@@ -32,6 +33,7 @@ class Navitem extends Component {
                   <Dropdown.Item
                     key={item}
                     onSelect={() => this.props.onChangeItem(item)}
+                    id="dropdown-item"
                   >
                     {item}
                   </Dropdown.Item>

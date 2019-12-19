@@ -54,9 +54,9 @@ class PathfindingVisualizer extends Component {
   render() {
     return (
       <div>
-        <Navbar bg="primary" variant="dark">
+        <Navbar variant="custom">
           <Navbar.Brand href="#home">Pathfinding Visualizer</Navbar.Brand>
-          <Nav className="mr-auto">
+          <Nav>
             <Navitem
               name={"Visualize"}
               type={"button"}

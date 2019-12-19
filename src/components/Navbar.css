@@ -1,8 +1,58 @@
 .navbar-nav > li {
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.navbar-custom {
+  background-color: rgb(36, 64, 80);
 }
 
 .navbar-brand {
   font-weight: bold;
+  color: white;
+}
+
+.navbar-brand:hover {
+  color: #1abc9c;
+}
+
+#button {
+  background-color: rgb(36, 64, 80);
+  border-color: rgb(36, 64, 80);
+}
+
+#button:hover {
+  color: #1abc9c;
+}
+
+#button:focus {
+  box-shadow: none;
+}
+
+#dropdown-toggle {
+  background-color: rgb(36, 64, 80);
+  border-color: rgb(36, 64, 80);
+}
+
+#dropdown-toggle:hover {
+  color: #1abc9c;
+}
+
+#dropdown-toggle:focus {
+  box-shadow: none;
+}
+
+/* 
+#dropdown-toggle:hover:focus {
+  background-color: #1abc9c;
+  color: white;
+  box-shadow: none;
+} */
+
+#dropdown-item {
+  font-family: "Roboto";
+}
+
+#dropdown-item:hover {
+  background-color: #1abc9c;
 }
