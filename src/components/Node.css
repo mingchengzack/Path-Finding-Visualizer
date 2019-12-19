@@ -8,6 +8,7 @@
 }
 
 .node-start {
+  background: url(../imgs/start.png);
   border: 1px solid green;
   animation-name: startAnimation;
   animation-duration: 1.5s;
@@ -32,6 +33,7 @@
 }
 
 .node-end {
+  background: url(../imgs/end.png);
   border: 1px solid red;
   animation-name: endAnimation;
   animation-duration: 1.5s;

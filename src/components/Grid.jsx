@@ -215,7 +215,7 @@ class Grid extends Component {
       node.type === nodeType.PATH_NOANIMATION
     ) {
       new_type = nodeType.WALL;
-      this.grid[node.y][node.x].weight = 1;
+      this.grid[node.y][node.x].weight = Infinity;
       this[`node-${node.y}-${node.x}`].setWeightType(weightType.DEFAULT);
     } else if (
       node.type === nodeType.WALL ||
