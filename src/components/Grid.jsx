@@ -66,6 +66,7 @@ class Grid extends Component {
           this.grid[i][j].type !== nodeType.END
         ) {
           this.grid[i][j].type = nodeType.DEFAULT;
+          this.grid[i][j].weight = 1;
           this[`node-${i}-${j}`].setNode(nodeType.DEFAULT);
           this[`node-${i}-${j}`].setWeightType(weightType.DEFAULT);
         }
@@ -173,11 +174,27 @@ class Grid extends Component {
 
   handleMouseDown = (node, type) => {
     this.isMousePressed = true;
-    this.clickedNode = node;
+
+    // copy the node state
+    this.clickedNode = {
+      ...node
+    };
+
     let { weight } = this.state;
     if (weight === weightType.DEFAULT) {
       this.grid[node.y][node.x].type = type;
+    } else {
+      let w =
+        weight === weightType.WEIGHT_THREE
+          ? 3
+          : weight === weightType.WEIGHT_FIVE
+          ? 5
+          : weight === weightType.WEIGHT_EIGHT
+          ? 8
+          : 1;
+      this.grid[node.y][node.x].weight = w;
     }
+
     // can only modify the node once (for non-start, non-end nodes)
     if (
       this.clickedNode.type !== nodeType.START &&
@@ -198,6 +215,7 @@ class Grid extends Component {
       node.type === nodeType.PATH_NOANIMATION
     ) {
       new_type = nodeType.WALL;
+      this.grid[node.y][node.x].weight = 1;
       this[`node-${node.y}-${node.x}`].setWeightType(weightType.DEFAULT);
     } else if (
       node.type === nodeType.WALL ||
@@ -225,6 +243,16 @@ class Grid extends Component {
         new_weight = weightType.DEFAULT;
       }
 
+      let w =
+        new_weight === weightType.WEIGHT_THREE
+          ? 3
+          : new_weight === weightType.WEIGHT_FIVE
+          ? 5
+          : new_weight === weightType.WEIGHT_EIGHT
+          ? 8
+          : 1;
+
+      this.grid[node.y][node.x].weight = w;
       this[`node-${node.y}-${node.x}`].setWeightType(new_weight);
     }
   }
@@ -310,6 +338,7 @@ class Grid extends Component {
           type: type,
           isVisited: false,
           distance: Infinity,
+          weight: 1,
           prevNode: null
         };
         row.push(node);

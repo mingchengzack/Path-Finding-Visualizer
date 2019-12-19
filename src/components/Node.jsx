@@ -118,7 +118,7 @@ class Node extends Component {
         onMouseUp={() => this.props.onMouseUp()}
         onDragStart={this.preventDragHandler}
       >
-        <td className={`${weightname}`}></td>
+        <div className={`${weightname}`}></div>
       </div>
     );
   }

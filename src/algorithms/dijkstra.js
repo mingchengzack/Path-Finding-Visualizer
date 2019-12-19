@@ -56,7 +56,9 @@ function updateUnvisitedNeighbors(node, grid) {
   );
 
   for (const neighbor of unvisitedNeighbors) {
-    neighbor.distance = node.distance + 1;
-    neighbor.prevNode = node;
+    if (node.distance + neighbor.weight < neighbor.distance) {
+      neighbor.distance = node.distance + neighbor.weight;
+      neighbor.prevNode = node;
+    }
   }
 }
