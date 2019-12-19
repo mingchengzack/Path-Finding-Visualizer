@@ -11,16 +11,20 @@ export function dfs(grid, startNode, endNode) {
 
     // add neighbors to unvisitedNodes
     updateUnvisitedNeighbors(curNode, grid, unvisitedNodes);
+
+    // stack may contain two same nodes
     if (!curNode.isVisited) {
       curNode.isVisited = true;
-      if (curNode === endNode) return visitedNodes;
+      if (curNode === endNode) return [visitedNodes, true];
+
+      // excludes start node  and end node for visualization
       if (curNode !== startNode) {
         visitedNodes.push(curNode);
       }
     }
   }
 
-  return visitedNodes;
+  return [visitedNodes, false];
 }
 
 function updateUnvisitedNeighbors(node, grid, unvisitedNodes) {

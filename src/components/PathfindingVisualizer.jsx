@@ -33,19 +33,19 @@ class PathfindingVisualizer extends Component {
   };
 
   handleVisualize = () => {
-    let speed = 8;
+    let speed = 12;
     switch (this.state.curSpeed) {
       case "Fast":
-        speed = 8;
-        break;
-      case "Medium":
         speed = 12;
         break;
+      case "Medium":
+        speed = 16;
+        break;
       case "Slow":
-        speed = 15;
+        speed = 20;
         break;
       default:
-        speed = 8;
+        speed = 12;
         break;
     }
     this.grid.visualize(this.state.curAlgorithm, speed);
