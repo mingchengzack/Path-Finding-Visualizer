@@ -8,52 +8,54 @@
 }
 
 .node-start {
-  background: url(../imgs/start.png);
-  border: 1px solid rgb(36, 99, 36);
+  background: url(../imgs/start.svg);
+  background-color: rgb(248, 248, 83);
+  border: none;
   animation-name: startAnimation;
-  animation-duration: 1.5s;
+  animation-duration: 0.5s;
   animation-fill-mode: forwards;
 }
 
 @keyframes startAnimation {
   0% {
     transform: scale(0.8);
-    background-color: rgb(36, 99, 36);
+    background-color: rgb(248, 248, 83);
   }
 
   50% {
     transform: scale(1.2);
-    background-color: rgb(36, 99, 36);
+    background-color: rgb(248, 248, 83);
   }
 
   100% {
     transform: scale(1);
-    background-color: rgb(36, 99, 36);
+    background-color: rgb(248, 248, 83);
   }
 }
 
 .node-end {
-  background: url(../imgs/end.png);
-  border: 1px solid rgb(145, 45, 45);
+  background: url(../imgs/end.svg);
+  background-color: rgb(248, 248, 83);
+  border: none;
   animation-name: endAnimation;
-  animation-duration: 1.5s;
+  animation-duration: 0.5s;
   animation-fill-mode: forwards;
 }
 
 @keyframes endAnimation {
   0% {
     transform: scale(0.8);
-    background-color: rgb(145, 45, 45);
+    background-color: rgb(248, 248, 83);
   }
 
   50% {
     transform: scale(1.2);
-    background-color: rgb(145, 45, 45);
+    background-color: rgb(248, 248, 83);
   }
 
   100% {
     transform: scale(1);
-    background-color: rgb(145, 45, 45);
+    background-color: rgb(248, 248, 83);
   }
 }
 
@@ -62,7 +64,7 @@
   height: 23px;
   margin-left: -1px;
   display: inline-block;
-  background: url(../imgs/three.png);
+  background: url(../imgs/w3.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -90,7 +92,7 @@
   height: 23px;
   margin-left: -1px;
   display: inline-block;
-  background: url(../imgs/five.png);
+  background: url(../imgs/w5.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -118,7 +120,7 @@
   height: 23px;
   margin-left: -1px;
   display: inline-block;
-  background: url(../imgs/eight.png);
+  background: url(../imgs/w8.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;

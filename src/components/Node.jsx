@@ -8,7 +8,7 @@ class Node extends Component {
       x: props.node.x,
       y: props.node.y,
       type: props.node.type,
-      weight: props.weight,
+      weight: weightType.DEFAULT,
       canModify: true
     };
   }

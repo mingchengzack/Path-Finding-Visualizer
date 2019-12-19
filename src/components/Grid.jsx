@@ -15,16 +15,6 @@ const DEFAULT_END_Y = 12;
 class Grid extends Component {
   constructor(props) {
     super(props);
-    let weight =
-      this.props.weightname === "Weight 3"
-        ? weightType.WEIGHT_THREE
-        : this.props.weightname === "Weight 5"
-        ? weightType.WEIGHT_FIVE
-        : this.props.weightname === "Weight 8"
-        ? weightType.WEIGHT_EIGHT
-        : weightType.DEFAULT;
-
-    this.state = { weight: weight };
     this.grid = this.constructInitGrid();
     this.startNode = this.grid[DEFAULT_START_Y][DEFAULT_START_X];
     this.endNode = this.grid[DEFAULT_END_Y][DEFAULT_END_X];
@@ -40,18 +30,6 @@ class Grid extends Component {
 
   componentWillUnmount() {
     this.props.onRef(undefined);
-  }
-
-  changeWeightType(weightname) {
-    let weight =
-      weightname === "Weight 3"
-        ? weightType.WEIGHT_THREE
-        : weightname === "Weight 5"
-        ? weightType.WEIGHT_FIVE
-        : weightname === "Weight 8"
-        ? weightType.WEIGHT_EIGHT
-        : weightType.DEFAULT;
-    this.setState({ weight });
   }
 
   resetGrid() {
@@ -172,30 +150,6 @@ class Grid extends Component {
     }
   }
 
-  handleMouseDown = node => {
-    this.isMousePressed = true;
-
-    // copy the node state
-    this.clickedNode = {
-      ...node
-    };
-
-    if (this.state.weight === weightType.DEFAULT) {
-      this.toggleWall(node);
-    } else {
-      this.toggleWeight(node);
-    }
-
-    // can only modify the node once (for non-start, non-end nodes)
-    if (
-      this.clickedNode.type !== nodeType.START &&
-      this.clickedNode.type !== nodeType.END
-    ) {
-      node.canModify = false;
-      this.modfiedNodes.push(node);
-    }
-  };
-
   toggleWall(node) {
     let new_type = node.type;
     if (
@@ -229,7 +183,7 @@ class Grid extends Component {
     ) {
       let new_weight;
       if (node.weight === weightType.DEFAULT) {
-        new_weight = this.state.weight;
+        new_weight = this.props.weight;
       } else {
         new_weight = weightType.DEFAULT;
       }
@@ -276,15 +230,38 @@ class Grid extends Component {
     }
   }
 
-  handleMouseEnter = node => {
-    // can only modify the node once
-    if (!this.isMousePressed || !node.canModify) return;
-    const { weight } = this.state;
+  handleMouseDown = node => {
+    this.isMousePressed = true;
+
+    // copy the node state
+    this.clickedNode = {
+      ...node
+    };
+
+    if (this.props.weight === weightType.DEFAULT) {
+      this.toggleWall(node);
+    } else {
+      this.toggleWeight(node);
+    }
+
+    // can only modify the node once (for non-start, non-end nodes)
     if (
       this.clickedNode.type !== nodeType.START &&
       this.clickedNode.type !== nodeType.END
     ) {
-      if (weight === weightType.DEFAULT) {
+      node.canModify = false;
+      this.modfiedNodes.push(node);
+    }
+  };
+
+  handleMouseEnter = node => {
+    // can only modify the node once
+    if (!this.isMousePressed || !node.canModify) return;
+    if (
+      this.clickedNode.type !== nodeType.START &&
+      this.clickedNode.type !== nodeType.END
+    ) {
+      if (this.props.weight === weightType.DEFAULT) {
         this.toggleWall(node);
       } else {
         this.toggleWeight(node);
@@ -341,8 +318,6 @@ class Grid extends Component {
   }
 
   render() {
-    let { weight } = this.state;
-
     return (
       <div className="grid">
         {this.grid.map((row, rowIdx) => {
@@ -357,7 +332,6 @@ class Grid extends Component {
                     onMouseDown={this.handleMouseDown}
                     onMouseEnter={this.handleMouseEnter}
                     onMouseUp={this.handleMouseUp}
-                    weight={weight}
                     onRef={ref => (this[`node-${rowIdx}-${nodeIdx}`] = ref)}
                   />
                 );

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Grid from "./Grid";
 import { Navbar } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
+import { weightType } from "./Node";
 import Navitem from "./Navitem";
 import "./Navbar.css";
 
@@ -36,7 +37,6 @@ class PathfindingVisualizer extends Component {
 
   handleChangeWeight = weightname => {
     this.setState({ curWeight: weightname });
-    this.grid.changeWeightType(weightname);
   };
 
   handleReset = () => {
@@ -63,6 +63,14 @@ class PathfindingVisualizer extends Component {
   };
 
   render() {
+    let weight =
+      this.state.curWeight === "Weight 3"
+        ? weightType.WEIGHT_THREE
+        : this.state.curWeight === "Weight 5"
+        ? weightType.WEIGHT_FIVE
+        : this.state.curWeight === "Weight 8"
+        ? weightType.WEIGHT_EIGHT
+        : weightType.DEFAULT;
     return (
       <div>
         <Navbar variant="custom">
@@ -105,7 +113,7 @@ class PathfindingVisualizer extends Component {
           rows={24}
           cols={54}
           algorithm={this.state.curAlgorithm}
-          weightname={this.state.curWeight}
+          weight={weight}
           onRef={ref => (this.grid = ref)}
         />
       </div>
