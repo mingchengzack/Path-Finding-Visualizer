@@ -49,17 +49,21 @@ class Node extends Component {
   }
 
   toggleWeight() {
+    let new_weight;
     if (this.state.weight === weightType.DEFAULT) {
       if (this.state.type !== nodeType.WALL) {
-        this.setState({ weight: this.props.weight });
+        new_weight = this.props.weight;
       }
     } else {
-      this.setState({ weight: weightType.DEFAULT });
+      new_weight = weightType.DEFAULT;
     }
+    this.setState({ weight: new_weight });
+    return new_weight;
   }
 
   handleChangeNode = () => {
     let new_type = this.state.type;
+    let new_weight = this.state.weight;
     if (
       this.state.type !== nodeType.START &&
       this.state.type !== nodeType.END
@@ -67,10 +71,10 @@ class Node extends Component {
       if (this.props.weight === weightType.DEFAULT) {
         new_type = this.toggleWall();
       } else {
-        this.toggleWeight();
+        new_weight = this.toggleWeight();
       }
     }
-    this.props.onMouseDown(this.state, new_type);
+    this.props.onMouseDown(this.state, new_type, new_weight);
   };
 
   setWeightType = weight => {

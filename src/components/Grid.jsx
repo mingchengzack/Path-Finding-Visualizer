@@ -172,7 +172,7 @@ class Grid extends Component {
     }
   }
 
-  handleMouseDown = (node, type) => {
+  handleMouseDown = (node, type, weight) => {
     this.isMousePressed = true;
 
     // copy the node state
@@ -180,8 +180,7 @@ class Grid extends Component {
       ...node
     };
 
-    let { weight } = this.state;
-    if (weight === weightType.DEFAULT) {
+    if (this.state.weight === weightType.DEFAULT) {
       this.grid[node.y][node.x].type = type;
     } else {
       let w =
@@ -261,7 +260,8 @@ class Grid extends Component {
     if (
       node.type !== nodeType.WALL &&
       node.type !== nodeType.START &&
-      node.type !== nodeType.END
+      node.type !== nodeType.END &&
+      node.weight === weightType.DEFAULT
     ) {
       const prevX = this.clickedNode.x;
       const prevY = this.clickedNode.y;
