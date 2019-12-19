@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9451042a974ad9b77dbc9ada2d406b1f",
+    "revision": "1a551e45d7469ea733d5763490baad22",
     "url": "/Path-Finding-Visualizer/index.html"
   },
   {
-    "revision": "ccc32b5b3f79dc87c78a",
+    "revision": "ea54c4e0171f6919a959",
     "url": "/Path-Finding-Visualizer/static/css/2.31b9d3d8.chunk.css"
   },
   {
-    "revision": "db5706eaa706e58774ad",
-    "url": "/Path-Finding-Visualizer/static/css/main.02cb85f6.chunk.css"
+    "revision": "60936072b8f859d20ecf",
+    "url": "/Path-Finding-Visualizer/static/css/main.2c28ae96.chunk.css"
   },
   {
-    "revision": "ccc32b5b3f79dc87c78a",
-    "url": "/Path-Finding-Visualizer/static/js/2.a0bd81bf.chunk.js"
+    "revision": "ea54c4e0171f6919a959",
+    "url": "/Path-Finding-Visualizer/static/js/2.d577cf01.chunk.js"
   },
   {
     "revision": "b15a737ad2cfd16685fd27e8e85315d2",
-    "url": "/Path-Finding-Visualizer/static/js/2.a0bd81bf.chunk.js.LICENSE"
+    "url": "/Path-Finding-Visualizer/static/js/2.d577cf01.chunk.js.LICENSE"
   },
   {
-    "revision": "db5706eaa706e58774ad",
-    "url": "/Path-Finding-Visualizer/static/js/main.97f6db90.chunk.js"
+    "revision": "60936072b8f859d20ecf",
+    "url": "/Path-Finding-Visualizer/static/js/main.1b7d0e67.chunk.js"
   },
   {
     "revision": "d3343f0ae429f593b03e",
