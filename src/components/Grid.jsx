@@ -172,7 +172,7 @@ class Grid extends Component {
     }
   }
 
-  handleMouseDown = (node, type, weight) => {
+  handleMouseDown = node => {
     this.isMousePressed = true;
 
     // copy the node state
@@ -181,17 +181,9 @@ class Grid extends Component {
     };
 
     if (this.state.weight === weightType.DEFAULT) {
-      this.grid[node.y][node.x].type = type;
+      this.toggleWall(node);
     } else {
-      let w =
-        weight === weightType.WEIGHT_THREE
-          ? 3
-          : weight === weightType.WEIGHT_FIVE
-          ? 5
-          : weight === weightType.WEIGHT_EIGHT
-          ? 8
-          : 1;
-      this.grid[node.y][node.x].weight = w;
+      this.toggleWeight(node);
     }
 
     // can only modify the node once (for non-start, non-end nodes)
@@ -225,8 +217,8 @@ class Grid extends Component {
       new_type = nodeType.DEFAULT;
     }
 
-    this[`node-${node.y}-${node.x}`].setNode(new_type);
     this.grid[node.y][node.x].type = new_type;
+    this[`node-${node.y}-${node.x}`].setNode(new_type);
   }
 
   toggleWeight(node) {
