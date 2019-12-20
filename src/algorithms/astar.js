@@ -6,13 +6,13 @@ export function astar(grid, startNode, endNode) {
   let unvisitedNodes = [];
   for (const row of grid) {
     for (const node of row) {
-      node.euclideanDis = EuclideanDistance(node, endNode);
+      node.manhattanDis = ManhattanDistance(node, endNode);
       unvisitedNodes.push(node);
     }
   }
 
   startNode.distance = 0;
-  startNode.totalDis = startNode.euclideanDis;
+  startNode.totalDis = startNode.manhattanDis;
 
   while (unvisitedNodes.length !== 0) {
     // sort the nodes by total distance
@@ -59,15 +59,12 @@ function updateUnvisitedNeighbors(node, grid) {
   for (const neighbor of unvisitedNeighbors) {
     if (node.distance + neighbor.weight < neighbor.distance) {
       neighbor.distance = node.distance + neighbor.weight;
-      neighbor.totalDis = neighbor.distance + neighbor.euclideanDis;
+      neighbor.totalDis = neighbor.distance + neighbor.manhattanDis;
       neighbor.prevNode = node;
     }
   }
 }
 
-function EuclideanDistance(nodeA, nodeB) {
-  return Math.sqrt(
-    (nodeA.x - nodeB.x) * (nodeA.x - nodeB.x) +
-      (nodeA.y - nodeB.y) * (nodeA.y - nodeB.y)
-  );
+function ManhattanDistance(nodeA, nodeB) {
+  return Math.abs(nodeA.x - nodeB.x) + Math.abs(nodeA.y - nodeB.y);
 }

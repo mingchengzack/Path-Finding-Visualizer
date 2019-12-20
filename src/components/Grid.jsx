@@ -61,7 +61,7 @@ class Grid extends Component {
         this.grid[i][j].prevNode = null;
         this.grid[i][j].distance = Infinity;
         this.grid[i][j].totalDis = Infinity;
-        this.grid[i][j].euclideanDis = Infinity;
+        this.grid[i][j].manhattanDis = Infinity;
         this.grid[i][j].isVisited = false;
         this[`node-${i}-${j}`].setAnimation(animationType.DEFAULT);
       }
@@ -285,7 +285,7 @@ class Grid extends Component {
           isVisited: false,
           distance: Infinity,
           totalDis: Infinity,
-          euclideanDis: Infinity,
+          manhattanDis: Infinity,
           weight: 1,
           prevNode: null
         };
