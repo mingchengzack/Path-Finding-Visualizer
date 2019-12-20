@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Node, { nodeType, animationType } from "./Node";
 import { dijkstra, dijkstraPath } from "../algorithms/dijkstra";
-import { astar } from "../algorithms/astar";
+import { astar, astarPath } from "../algorithms/astar";
 import { dfs } from "../algorithms/dfs";
 import { bfs } from "../algorithms/bfs";
 
@@ -60,6 +60,8 @@ class Grid extends Component {
       for (let j = 0; j < cols; j++) {
         this.grid[i][j].prevNode = null;
         this.grid[i][j].distance = Infinity;
+        this.grid[i][j].totalDis = Infinity;
+        this.grid[i][j].euclideanDis = Infinity;
         this.grid[i][j].isVisited = false;
         this[`node-${i}-${j}`].setAnimation(animationType.DEFAULT);
       }
@@ -104,9 +106,13 @@ class Grid extends Component {
     switch (algorithm) {
       case "Dijkstra":
         visitedNodes = dijkstra(this.grid, this.startNode, this.endNode);
-        nodesInPath = dijkstraPath(this.startNode, this.endNode);
+        nodesInPath = dijkstraPath(this.endNode);
+        nodesInPath = nodesInPath.length == 1 ? [] : nodesInPath;
         break;
       case "A* Search":
+        visitedNodes = astar(this.grid, this.startNode, this.endNode);
+        nodesInPath = astarPath(this.endNode);
+        nodesInPath = nodesInPath.length == 1 ? [] : nodesInPath;
         break;
       case "Depth First Search":
         [visitedNodes, find] = dfs(this.grid, this.startNode, this.endNode);
@@ -278,6 +284,8 @@ class Grid extends Component {
           type: type,
           isVisited: false,
           distance: Infinity,
+          totalDis: Infinity,
+          euclideanDis: Infinity,
           weight: 1,
           prevNode: null
         };

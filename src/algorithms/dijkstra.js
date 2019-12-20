@@ -15,8 +15,7 @@ export function dijkstra(grid, startNode, endNode) {
     unvisitedNodes.sort((nodeA, nodeB) => nodeA.distance - nodeB.distance);
     const closestNode = unvisitedNodes.shift();
 
-    // If the closest node is at a distance of infinity,
-    // we must be trapped and should therefore stop.
+    // trapped by wall
     if (closestNode.distance === Infinity) return visitedNodes;
 
     closestNode.isVisited = true;
@@ -32,7 +31,7 @@ export function dijkstra(grid, startNode, endNode) {
 }
 
 // backtracks from the endNode to find the shortest path
-export function dijkstraPath(startNode, endNode) {
+export function dijkstraPath(endNode) {
   const nodesInShortestPath = [];
   let currNode = endNode;
 
