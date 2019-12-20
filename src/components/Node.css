@@ -9,10 +9,18 @@
 
 .node-start {
   background: url(../imgs/start.svg);
+  border: none;
+  animation-name: genAnimation;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
 }
 
 .node-end {
   background: url(../imgs/end.svg);
+  border: none;
+  animation-name: genAnimation;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
 }
 
 .node-three {

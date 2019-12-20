@@ -156,7 +156,7 @@ class Grid extends Component {
           : new_type === nodeType.WEIGHT_EIGHT
           ? 8
           : Infinity;
-      this.grid[node.y][node.x].weight = weight;
+      this.grid[node.y][node.x].weight = weight;  // set weight
       this[`node-${node.y}-${node.x}`].setNodeandAnimation(
         new_type,
         animationType.GENERATE
@@ -168,6 +168,7 @@ class Grid extends Component {
       node.type === nodeType.WEIGHT_EIGHT
     ) {
       new_type = nodeType.DEFAULT;
+      this.grid[node.y][node.x].weight = 1; // reset weight to 1
       this[`node-${node.y}-${node.x}`].setNodeandAnimation(
         new_type,
         animationType.DEFAULT
@@ -182,15 +183,9 @@ class Grid extends Component {
       const prevX = this.clickedNode.x;
       const prevY = this.clickedNode.y;
       const { x, y } = node;
-      this[`node-${prevY}-${prevX}`].setNodeandAnimation(
-        nodeType.DEFAULT,
-        animationType.DEFAULT
-      );
+      this[`node-${prevY}-${prevX}`].setNode(nodeType.DEFAULT);
       this.grid[prevY][prevX].type = nodeType.DEFAULT;
-      this[`node-${y}-${x}`].setNodeandAnimation(
-        this.clickedNode.type,
-        animationType.GENERATE
-      );
+      this[`node-${y}-${x}`].setNode(this.clickedNode.type);
       this.grid[y][x].type = this.clickedNode.type;
       if (this.grid[y][x].type === nodeType.START) {
         this.startNode = this.grid[y][x];
