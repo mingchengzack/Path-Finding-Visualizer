@@ -122,6 +122,10 @@
   margin-left: 5px;
 }
 
+#middle {
+  top: 0.1em;
+}
+
 .instruction > ul li {
   display: inline-block;
 }

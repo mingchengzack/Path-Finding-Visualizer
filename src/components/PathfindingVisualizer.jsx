@@ -162,7 +162,7 @@ class PathfindingVisualizer extends Component {
           <ul>
             <li>
               <img src={add} />
-              <div> Add Wall or Weighted Nodes </div>
+              <div id="middle"> Add Wall or Weighted Nodes </div>
             </li>
           </ul>
           <ul>
