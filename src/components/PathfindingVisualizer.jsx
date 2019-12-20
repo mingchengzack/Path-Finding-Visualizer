@@ -4,9 +4,10 @@ import { Nav } from "react-bootstrap";
 import Grid from "./Grid";
 import { nodeType } from "./Node";
 import Navitem from "./Navitem";
-import Icon from "@material-ui/core/Icon";
+import select from "../imgs/select.svg";
+import visual from "../imgs/visual.svg";
+import add from "../imgs/add.svg";
 import "./Navbar.css";
-import { yellow } from "@material-ui/core/colors";
 
 const algorithms = [
   "Dijkstra",
@@ -154,19 +155,19 @@ class PathfindingVisualizer extends Component {
         <div className="instruction">
           <ul>
             <li>
-              <Icon style={{ color: yellow[500] }}>star</Icon>
+              <img src={select} />
               <div> Pick an Algorithm </div>
             </li>
           </ul>
           <ul>
             <li>
-              <Icon style={{ color: yellow[500] }}>star</Icon>
+              <img src={add} />
               <div> Add Wall or Weighted Nodes </div>
             </li>
           </ul>
           <ul>
             <li>
-              <Icon style={{ color: yellow[500] }}>star</Icon>
+              <img src={visual} />
               <div> Visualize and Enjoy! </div>
             </li>
           </ul>
