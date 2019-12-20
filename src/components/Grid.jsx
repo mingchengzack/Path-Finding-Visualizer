@@ -298,7 +298,11 @@ class Grid extends Component {
 
   render() {
     return (
-      <div className="grid" onMouseUp={() => this.handleMouseUp()}>
+      <div
+        className="grid"
+        onMouseUp={() => this.handleMouseUp()}
+        onMouseLeave={() => this.handleMouseUp()}
+      >
         {this.grid.map((row, rowIdx) => {
           return (
             <div key={rowIdx} id="row">
