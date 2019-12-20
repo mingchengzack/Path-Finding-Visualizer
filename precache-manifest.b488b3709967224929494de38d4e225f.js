@@ -1,31 +1,35 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3cb4af78ae4482306f2df35abaf331dd",
+    "revision": "73a00d8a1298c75288ac5d95615140cc",
     "url": "/Path-Finding-Visualizer/index.html"
   },
   {
-    "revision": "be8be67210710b597621",
+    "revision": "2867891515192254bb7b",
     "url": "/Path-Finding-Visualizer/static/css/2.31b9d3d8.chunk.css"
   },
   {
-    "revision": "333f85c59e4df18def4f",
-    "url": "/Path-Finding-Visualizer/static/css/main.77d6393c.chunk.css"
+    "revision": "c504b45e9ae83891a071",
+    "url": "/Path-Finding-Visualizer/static/css/main.443a04b6.chunk.css"
   },
   {
-    "revision": "be8be67210710b597621",
-    "url": "/Path-Finding-Visualizer/static/js/2.d37fa8f0.chunk.js"
+    "revision": "2867891515192254bb7b",
+    "url": "/Path-Finding-Visualizer/static/js/2.19c70ebf.chunk.js"
   },
   {
-    "revision": "0c74b13391a5594258a49f4df151b4d3",
-    "url": "/Path-Finding-Visualizer/static/js/2.d37fa8f0.chunk.js.LICENSE"
+    "revision": "b15a737ad2cfd16685fd27e8e85315d2",
+    "url": "/Path-Finding-Visualizer/static/js/2.19c70ebf.chunk.js.LICENSE"
   },
   {
-    "revision": "333f85c59e4df18def4f",
-    "url": "/Path-Finding-Visualizer/static/js/main.248a791f.chunk.js"
+    "revision": "c504b45e9ae83891a071",
+    "url": "/Path-Finding-Visualizer/static/js/main.71ed404e.chunk.js"
   },
   {
     "revision": "d3343f0ae429f593b03e",
     "url": "/Path-Finding-Visualizer/static/js/runtime-main.e66d59bc.js"
+  },
+  {
+    "revision": "93421e0d2550d7820936a46414cdcd40",
+    "url": "/Path-Finding-Visualizer/static/media/add.93421e0d.svg"
   },
   {
     "revision": "74c169e6d615a006ea4a64dcbe4c1937",
@@ -128,8 +132,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Path-Finding-Visualizer/static/media/roboto-latin-900italic.ebf6d164.woff2"
   },
   {
+    "revision": "f4d9287c9dd289adf66f81822ad5203d",
+    "url": "/Path-Finding-Visualizer/static/media/select.f4d9287c.svg"
+  },
+  {
     "revision": "d2608c25d19da2ed7da0a91047dd2549",
     "url": "/Path-Finding-Visualizer/static/media/start.d2608c25.svg"
+  },
+  {
+    "revision": "af17a8e4e76f37019c2f1b5da27ab44a",
+    "url": "/Path-Finding-Visualizer/static/media/visual.af17a8e4.svg"
   },
   {
     "revision": "0ca6760a373a812b21a4e8328b37180c",
