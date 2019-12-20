@@ -52,3 +52,82 @@
 #dropdown-item:hover {
   background-color: #1abc9c;
 }
+
+#info {
+  font-size: 18px;
+  font-family: "Roboto";
+  box-sizing: border-box;
+}
+
+#info div {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  position: relative;
+  margin-right: 5px;
+  top: 0.35em;
+  margin-top: 20px;
+}
+
+#info > ul li {
+  display: inline-block;
+  padding: 0 38px 0 0;
+}
+
+.start {
+  background: url(../imgs/start.svg);
+}
+
+.end {
+  background: url(../imgs/end.svg);
+}
+
+.wall {
+  background-color: rgb(11, 47, 63);
+}
+
+.weight3 {
+  background: url(../imgs/w3.svg);
+}
+
+.weight5 {
+  background: url(../imgs/w5.svg);
+}
+
+.weight8 {
+  background: url(../imgs/w8.svg);
+}
+
+.unvisited-node {
+  border: 1px solid rgb(175, 216, 248);
+}
+
+.visited-node {
+  background-color: rgba(0, 190, 218, 0.75);
+}
+
+.path-node {
+  background-color: rgb(248, 248, 83);
+}
+
+.instruction {
+  font-family: "Roboto";
+  font-size: 18px;
+  color: rgb(36, 64, 80);
+}
+
+.instruction div {
+  display: inline-block;
+  position: relative;
+  margin-left: 5px;
+  top: -0.3em;
+}
+
+.instruction > ul li {
+  display: inline-block;
+}
+
+.instruction > ul {
+  padding: 0 0 0 0;
+  margin: 0 0 0;
+}

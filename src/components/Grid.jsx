@@ -7,10 +7,10 @@ import { bfs } from "../algorithms/bfs";
 
 import "./Node.css";
 
-const DEFAULT_START_X = 14;
-const DEFAULT_START_Y = 12;
-const DEFAULT_END_X = 36;
-const DEFAULT_END_Y = 12;
+const DEFAULT_START_X = 18;
+const DEFAULT_START_Y = 10;
+const DEFAULT_END_X = 38;
+const DEFAULT_END_Y = 10;
 
 class Grid extends Component {
   constructor(props) {

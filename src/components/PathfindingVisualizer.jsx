@@ -4,7 +4,9 @@ import { Nav } from "react-bootstrap";
 import Grid from "./Grid";
 import { nodeType } from "./Node";
 import Navitem from "./Navitem";
+import Icon from "@material-ui/core/Icon";
 import "./Navbar.css";
+import { yellow } from "@material-ui/core/colors";
 
 const algorithms = [
   "Dijkstra",
@@ -109,9 +111,69 @@ class PathfindingVisualizer extends Component {
             />
           </Nav>
         </Navbar>
+        <div id="info">
+          <ul>
+            <li>
+              <div className="start"></div>
+              Start Node
+            </li>
+            <li>
+              <div className="end"></div>
+              End Node
+            </li>
+            <li>
+              <div className="wall"></div>
+              Wall Node
+            </li>
+            <li>
+              <div className="weight3"></div>
+              Weight 3
+            </li>
+            <li>
+              <div className="weight5"></div>
+              Weight 5
+            </li>
+            <li>
+              <div className="weight8"></div>
+              Weight 8
+            </li>
+            <li>
+              <div className="unvisited-node"></div>
+              Unvisited Node
+            </li>
+            <li>
+              <div className="visited-node"></div>
+              Visited Node
+            </li>
+            <li>
+              <div className="path-node"></div>
+              Path Node
+            </li>
+          </ul>
+        </div>
+        <div className="instruction">
+          <ul>
+            <li>
+              <Icon style={{ color: yellow[500] }}>star</Icon>
+              <div> Pick an Algorithm </div>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <Icon style={{ color: yellow[500] }}>star</Icon>
+              <div> Add Wall or Weighted Nodes </div>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <Icon style={{ color: yellow[500] }}>star</Icon>
+              <div> Visualize and Enjoy! </div>
+            </li>
+          </ul>
+        </div>
         <Grid
-          rows={24}
-          cols={54}
+          rows={23}
+          cols={59}
           algorithm={this.state.curAlgorithm}
           nodetype={nodetype}
           onRef={ref => (this.grid = ref)}
