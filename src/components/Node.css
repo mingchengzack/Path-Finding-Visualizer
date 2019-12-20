@@ -9,154 +9,46 @@
 
 .node-start {
   background: url(../imgs/start.svg);
-  border: none;
-  animation-name: startAnimation;
-  animation-duration: 0.5s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes startAnimation {
-  0% {
-    transform: scale(0.8);
-  }
-
-  50% {
-    transform: scale(1.2);
-  }
-
-  100% {
-    transform: scale(1);
-  }
 }
 
 .node-end {
   background: url(../imgs/end.svg);
-  border: none;
-  animation-name: endAnimation;
-  animation-duration: 0.5s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes endAnimation {
-  0% {
-    transform: scale(0.8);
-  }
-
-  50% {
-    transform: scale(1.2);
-  }
-
-  100% {
-    transform: scale(1);
-  }
 }
 
 .node-three {
-  width: 24px;
-  height: 23px;
-  margin-left: -1px;
-  display: inline-block;
   background: url(../imgs/w3.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  animation-name: threeAnimation;
-  animation-duration: 0.3s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes threeAnimation {
-  0% {
-    transform: scale(0.6);
-  }
-
-  50% {
-    transform: scale(1.2);
-  }
-
-  100% {
-    transform: scale(1);
-  }
 }
 
 .node-five {
-  width: 24px;
-  height: 23px;
-  margin-left: -1px;
-  display: inline-block;
   background: url(../imgs/w5.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  animation-name: threeAnimation;
-  animation-duration: 0.3s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes fiveAnimation {
-  0% {
-    transform: scale(0.6);
-  }
-
-  50% {
-    transform: scale(1.2);
-  }
-
-  100% {
-    transform: scale(1);
-  }
 }
 
 .node-eight {
-  width: 24px;
-  height: 23px;
-  margin-left: -1px;
-  display: inline-block;
   background: url(../imgs/w8.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  animation-name: threeAnimation;
-  animation-duration: 0.3s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes eightAnimation {
-  0% {
-    transform: scale(0.6);
-  }
-
-  50% {
-    transform: scale(1.2);
-  }
-
-  100% {
-    transform: scale(1);
-  }
 }
 
 .node-wall {
   border: 1px solid rgb(11, 47, 63);
   background-color: rgb(11, 47, 63);
-  animation-name: wallAnimation;
+}
+
+.generate {
+  animation-name: genAnimation;
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
 }
 
-@keyframes wallAnimation {
+@keyframes genAnimation {
   0% {
     transform: scale(0.6);
-    background-color: rgb(11, 47, 63);
   }
 
   50% {
     transform: scale(1.2);
-    background-color: rgb(11, 47, 63);
   }
 
   100% {
     transform: scale(1);
-    background-color: rgb(11, 47, 63);
   }
 }
 

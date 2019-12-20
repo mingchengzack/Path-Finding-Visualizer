@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Grid from "./Grid";
 import { Navbar } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
-import { weightType } from "./Node";
+import Grid from "./Grid";
+import { nodeType } from "./Node";
 import Navitem from "./Navitem";
 import "./Navbar.css";
 
@@ -23,7 +23,7 @@ class PathfindingVisualizer extends Component {
     this.state = {
       curAlgorithm: "Dijkstra",
       curSpeed: "Fast",
-      curWeight: "Wall"
+      curNodeType: "Wall"
     };
   }
 
@@ -31,12 +31,12 @@ class PathfindingVisualizer extends Component {
     this.setState({ curAlgorithm: algorithm });
   };
 
-  handleChangeSpeed = speedName => {
-    this.setState({ curSpeed: speedName });
+  handleChangeSpeed = speedname => {
+    this.setState({ curSpeed: speedname });
   };
 
-  handleChangeWeight = weightname => {
-    this.setState({ curWeight: weightname });
+  handleChangeNodeType = nodetype => {
+    this.setState({ curNodeType: nodetype });
   };
 
   handleReset = () => {
@@ -63,14 +63,14 @@ class PathfindingVisualizer extends Component {
   };
 
   render() {
-    let weight =
-      this.state.curWeight === "Weight 3"
-        ? weightType.WEIGHT_THREE
-        : this.state.curWeight === "Weight 5"
-        ? weightType.WEIGHT_FIVE
-        : this.state.curWeight === "Weight 8"
-        ? weightType.WEIGHT_EIGHT
-        : weightType.DEFAULT;
+    let nodetype =
+      this.state.curNodeType === "Weight 3"
+        ? nodeType.WEIGHT_THREE
+        : this.state.curNodeType === "Weight 5"
+        ? nodeType.WEIGHT_FIVE
+        : this.state.curNodeType === "Weight 8"
+        ? nodeType.WEIGHT_EIGHT
+        : nodeType.WALL;
     return (
       <div>
         <Navbar variant="custom">
@@ -90,8 +90,8 @@ class PathfindingVisualizer extends Component {
               name={"Add Node"}
               type={"dropdown"}
               itemList={weights}
-              curItem={this.state.curWeight}
-              onChangeItem={this.handleChangeWeight}
+              curItem={this.state.curNodeType}
+              onChangeItem={this.handleChangeNodeType}
             />
             <Navitem
               name={"Algorithms"}
@@ -113,7 +113,7 @@ class PathfindingVisualizer extends Component {
           rows={24}
           cols={54}
           algorithm={this.state.curAlgorithm}
-          weight={weight}
+          nodetype={nodetype}
           onRef={ref => (this.grid = ref)}
         />
       </div>

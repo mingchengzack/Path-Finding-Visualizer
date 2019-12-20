@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Node, { nodeType, weightType, animationType } from "./Node";
+import Node, { nodeType, animationType } from "./Node";
 import { dijkstra, dijkstraPath } from "../algorithms/dijkstra";
 import { astar } from "../algorithms/astar";
 import { dfs } from "../algorithms/dfs";
@@ -47,7 +47,6 @@ class Grid extends Component {
           this.grid[i][j].weight = 1;
           this[`node-${i}-${j}`].setNode(nodeType.DEFAULT);
         }
-        this[`node-${i}-${j}`].setWeightType(weightType.DEFAULT);
         this[`node-${i}-${j}`].setAnimation(animationType.DEFAULT);
       }
     }
@@ -145,18 +144,23 @@ class Grid extends Component {
     }
   }
 
-  toggleWall(node) {
+  toggleNode(node, type) {
     let new_type = node.type;
-    if (
-      node.type === nodeType.DEFAULT ||
-      node.type === nodeType.VISITED ||
-      node.type === nodeType.VISITED_NOANIMATION ||
-      node.type === nodeType.PATH ||
-      node.type === nodeType.PATH_NOANIMATION
-    ) {
-      new_type = nodeType.WALL;
-      this.grid[node.y][node.x].weight = Infinity;
-      this[`node-${node.y}-${node.x}`].setWeightType(weightType.DEFAULT);
+    if (node.type === nodeType.DEFAULT) {
+      new_type = type;
+      let weight =
+        new_type === nodeType.WEIGHT_THREE
+          ? 3
+          : new_type === nodeType.WEIGHT_FIVE
+          ? 5
+          : new_type === nodeType.WEIGHT_EIGHT
+          ? 8
+          : Infinity;
+      this.grid[node.y][node.x].weight = weight;
+      this[`node-${node.y}-${node.x}`].setNodeandAnimation(
+        new_type,
+        animationType.GENERATE
+      );
     } else if (
       node.type === nodeType.WALL ||
       node.type === nodeType.WEIGHT_THREE ||
@@ -164,52 +168,29 @@ class Grid extends Component {
       node.type === nodeType.WEIGHT_EIGHT
     ) {
       new_type = nodeType.DEFAULT;
+      this[`node-${node.y}-${node.x}`].setNodeandAnimation(
+        new_type,
+        animationType.DEFAULT
+      );
     }
 
     this.grid[node.y][node.x].type = new_type;
-    this[`node-${node.y}-${node.x}`].setNode(new_type);
-  }
-
-  toggleWeight(node) {
-    if (
-      node.type !== nodeType.START &&
-      node.type !== nodeType.END &&
-      node.type !== nodeType.WALL
-    ) {
-      let new_weight;
-      if (node.weight === weightType.DEFAULT) {
-        new_weight = this.props.weight;
-      } else {
-        new_weight = weightType.DEFAULT;
-      }
-
-      let w =
-        new_weight === weightType.WEIGHT_THREE
-          ? 3
-          : new_weight === weightType.WEIGHT_FIVE
-          ? 5
-          : new_weight === weightType.WEIGHT_EIGHT
-          ? 8
-          : 1;
-
-      this.grid[node.y][node.x].weight = w;
-      this[`node-${node.y}-${node.x}`].setWeightType(new_weight);
-    }
   }
 
   moveStartorEndNode(node) {
-    if (
-      node.type !== nodeType.WALL &&
-      node.type !== nodeType.START &&
-      node.type !== nodeType.END &&
-      node.weight === weightType.DEFAULT
-    ) {
+    if (node.type === nodeType.DEFAULT) {
       const prevX = this.clickedNode.x;
       const prevY = this.clickedNode.y;
       const { x, y } = node;
-      this[`node-${prevY}-${prevX}`].setNode(nodeType.DEFAULT);
+      this[`node-${prevY}-${prevX}`].setNodeandAnimation(
+        nodeType.DEFAULT,
+        animationType.DEFAULT
+      );
       this.grid[prevY][prevX].type = nodeType.DEFAULT;
-      this[`node-${y}-${x}`].setNode(this.clickedNode.type);
+      this[`node-${y}-${x}`].setNodeandAnimation(
+        this.clickedNode.type,
+        animationType.GENERATE
+      );
       this.grid[y][x].type = this.clickedNode.type;
       if (this.grid[y][x].type === nodeType.START) {
         this.startNode = this.grid[y][x];
@@ -233,11 +214,7 @@ class Grid extends Component {
       ...node
     };
 
-    if (this.props.weight === weightType.DEFAULT) {
-      this.toggleWall(node);
-    } else {
-      this.toggleWeight(node);
-    }
+    this.toggleNode(node, this.props.nodetype);
 
     // can only modify the node once (for non-start, non-end nodes)
     if (
@@ -256,11 +233,7 @@ class Grid extends Component {
       this.clickedNode.type !== nodeType.START &&
       this.clickedNode.type !== nodeType.END
     ) {
-      if (this.props.weight === weightType.DEFAULT) {
-        this.toggleWall(node);
-      } else {
-        this.toggleWeight(node);
-      }
+      this.toggleNode(node, this.props.nodetype);
 
       // set the flag so that the node cannot be modified
       node.canModify = false;

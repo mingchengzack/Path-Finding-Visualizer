@@ -8,7 +8,6 @@ class Node extends Component {
       x: props.node.x,
       y: props.node.y,
       type: props.node.type,
-      weight: weightType.DEFAULT,
       animation: animationType.DEFAULT,
       canModify: true
     };
@@ -26,8 +25,8 @@ class Node extends Component {
     e.preventDefault();
   };
 
-  setWeightType = weight => {
-    this.setState({ weight });
+  setNodeandAnimation = (type, animation) => {
+    this.setState({ type, animation });
   };
 
   setNode = type => {
@@ -47,6 +46,12 @@ class Node extends Component {
         ? "node-end"
         : type === nodeType.WALL
         ? "node-wall"
+        : type === nodeType.WEIGHT_THREE
+        ? "node-three"
+        : type === nodeType.WEIGHT_FIVE
+        ? "node-five"
+        : type === nodeType.WEIGHT_EIGHT
+        ? "node-eight"
         : "";
 
     let { animation } = this.state;
@@ -55,20 +60,12 @@ class Node extends Component {
         ? "visited"
         : animation === animationType.PATH
         ? "path"
+        : animation === animationType.GENERATE
+        ? "generate"
         : animation === animationType.VISITED_NOANIMATION
         ? "visited-noanimation"
         : animation === animationType.PATH_NOANIMATION
         ? "path-noanimation"
-        : "";
-
-    let { weight } = this.state;
-    let weightname =
-      weight === weightType.WEIGHT_THREE
-        ? "node-three"
-        : weight === weightType.WEIGHT_FIVE
-        ? "node-five"
-        : weight === weightType.WEIGHT_EIGHT
-        ? "node-eight"
         : "";
 
     return (
@@ -78,9 +75,7 @@ class Node extends Component {
         onMouseEnter={() => this.props.onMouseEnter(this.state)}
         onMouseUp={() => this.props.onMouseUp()}
         onDragStart={this.preventDragHandler}
-      >
-        <div className={`${weightname}`}></div>
-      </div>
+      ></div>
     );
   }
 }
@@ -90,20 +85,17 @@ export const nodeType = {
   DEFAULT: 1,
   START: 2,
   END: 3,
-  WALL: 4
+  WALL: 4,
+  WEIGHT_THREE: 5,
+  WEIGHT_FIVE: 6,
+  WEIGHT_EIGHT: 7
 };
 
 export const animationType = {
   DEFAULT: 1,
   VISITED: 2,
   PATH: 3,
-  VISITED_NOANIMATION: 4,
-  PATH_NOANIMATION: 5
-};
-
-export const weightType = {
-  DEFAULT: 1,
-  WEIGHT_THREE: 2,
-  WEIGHT_FIVE: 3,
-  WEIGHT_EIGHT: 4
+  GENERATE: 4,
+  VISITED_NOANIMATION: 5,
+  PATH_NOANIMATION: 6
 };
