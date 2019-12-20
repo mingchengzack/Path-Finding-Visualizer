@@ -73,7 +73,6 @@ class Node extends Component {
         className={`node ${typename} ${animationname}`}
         onMouseDown={() => this.props.onMouseDown(this.state)}
         onMouseEnter={() => this.props.onMouseEnter(this.state)}
-        onMouseUp={() => this.props.onMouseUp()}
         onDragStart={this.preventDragHandler}
       ></div>
     );

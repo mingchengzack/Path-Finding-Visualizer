@@ -155,19 +155,19 @@ class PathfindingVisualizer extends Component {
         <div className="instruction">
           <ul>
             <li>
-              <img src={select} />
+              <img src={select} alt="select" />
               <div> Pick an Algorithm </div>
             </li>
           </ul>
           <ul>
             <li>
-              <img src={add} />
+              <img src={add} alt="select" />
               <div id="middle"> Add Wall or Weighted Nodes </div>
             </li>
           </ul>
           <ul>
             <li>
-              <img src={visual} />
+              <img src={visual} alt="select" />
               <div> Visualize and Enjoy! </div>
             </li>
           </ul>

@@ -107,12 +107,12 @@ class Grid extends Component {
       case "Dijkstra":
         visitedNodes = dijkstra(this.grid, this.startNode, this.endNode);
         nodesInPath = dijkstraPath(this.endNode);
-        nodesInPath = nodesInPath.length == 1 ? [] : nodesInPath;
+        nodesInPath = nodesInPath.length === 1 ? [] : nodesInPath;
         break;
       case "A* Search":
         visitedNodes = astar(this.grid, this.startNode, this.endNode);
         nodesInPath = astarPath(this.endNode);
-        nodesInPath = nodesInPath.length == 1 ? [] : nodesInPath;
+        nodesInPath = nodesInPath.length === 1 ? [] : nodesInPath;
         break;
       case "Depth First Search":
         [visitedNodes, find] = dfs(this.grid, this.startNode, this.endNode);
@@ -255,6 +255,7 @@ class Grid extends Component {
   handleMouseUp = () => {
     this.isMousePressed = false;
     this.clickedNode = null;
+    console.log("up");
 
     // reset all the modified nodes to can-modifiy
     for (let i = 0; i < this.modfiedNodes.length; i++) {
@@ -298,7 +299,7 @@ class Grid extends Component {
 
   render() {
     return (
-      <div className="grid">
+      <div className="grid" onMouseUp={() => this.handleMouseUp()}>
         {this.grid.map((row, rowIdx) => {
           return (
             <div key={rowIdx} id="row">
@@ -310,7 +311,6 @@ class Grid extends Component {
                     node={node}
                     onMouseDown={this.handleMouseDown}
                     onMouseEnter={this.handleMouseEnter}
-                    onMouseUp={this.handleMouseUp}
                     onRef={ref => (this[`node-${rowIdx}-${nodeIdx}`] = ref)}
                   />
                 );
