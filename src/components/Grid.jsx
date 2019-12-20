@@ -255,7 +255,6 @@ class Grid extends Component {
   handleMouseUp = () => {
     this.isMousePressed = false;
     this.clickedNode = null;
-    console.log("up");
 
     // reset all the modified nodes to can-modifiy
     for (let i = 0; i < this.modfiedNodes.length; i++) {
