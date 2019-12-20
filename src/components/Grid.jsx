@@ -131,7 +131,15 @@ class Grid extends Component {
           for (let j = 0; j < nodesInPath.length; j++) {
             setTimeout(() => {
               const node = nodesInPath[j];
-              this[`node-${node.y}-${node.x}`].setAnimation(animationType.PATH);
+              if (node.type === nodeType.START || node.type === nodeType.END) {
+                this[`node-${node.y}-${node.x}`].setAnimation(
+                  animationType.PATH_NOANIMATION
+                );
+              } else {
+                this[`node-${node.y}-${node.x}`].setAnimation(
+                  animationType.PATH
+                );
+              }
             }, 10 + 2 * speed * j);
           }
         }, 10 + speed * i);
@@ -156,7 +164,7 @@ class Grid extends Component {
           : new_type === nodeType.WEIGHT_EIGHT
           ? 8
           : Infinity;
-      this.grid[node.y][node.x].weight = weight;  // set weight
+      this.grid[node.y][node.x].weight = weight; // set weight
       this[`node-${node.y}-${node.x}`].setNodeandAnimation(
         new_type,
         animationType.GENERATE
