@@ -20,6 +20,7 @@ class Grid extends Component {
     this.startNode = this.grid[DEFAULT_START_Y][DEFAULT_START_X];
     this.endNode = this.grid[DEFAULT_END_Y][DEFAULT_END_X];
     this.isMousePressed = false;
+    this.isVisualized = false;
     this.algorithm = null;
     this.clickedNode = null;
     this.modfiedNodes = [];
@@ -34,6 +35,7 @@ class Grid extends Component {
   }
 
   resetGrid() {
+    if (this.isVisualized) return;
     let rows = this.props.rows;
     let cols = this.props.cols;
     this.algorithm = null;
@@ -70,6 +72,8 @@ class Grid extends Component {
   }
 
   visualize(algorithm, speed) {
+    if (this.isVisualized) return;
+    this.isVisualized = true;
     // reset the internal of the grid
     // and clear previous visualization
     this.resetGridforVisualize();
@@ -159,6 +163,11 @@ class Grid extends Component {
         }, 10 + speed * i);
       }
     }
+
+    // finish visualization
+    setTimeout(() => {
+      this.isVisualized = false;
+    }, 100 + speed * visitedNodes.length + 2 * speed * nodesInPath.length);
   }
 
   toggleNode(node, type) {
@@ -219,6 +228,7 @@ class Grid extends Component {
   }
 
   handleMouseDown = node => {
+    if (this.isVisualized) return;
     this.isMousePressed = true;
 
     // copy the node state
