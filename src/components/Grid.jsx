@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Node, { nodeType, animationType } from "./Node";
-import { dijkstra, dijkstraPath } from "../algorithms/dijkstra";
-import { astar, astarPath } from "../algorithms/astar";
+import { dijkstra, findPath } from "../algorithms/dijkstra";
+import { astar } from "../algorithms/astar";
+import { greedy } from "../algorithms/greedy";
 import { dfs } from "../algorithms/dfs";
 import { bfs } from "../algorithms/bfs";
 
@@ -106,25 +107,27 @@ class Grid extends Component {
     switch (algorithm) {
       case "Dijkstra":
         visitedNodes = dijkstra(this.grid, this.startNode, this.endNode);
-        nodesInPath = dijkstraPath(this.endNode);
-        nodesInPath = nodesInPath.length === 1 ? [] : nodesInPath;
+        nodesInPath = findPath(this.endNode);
         break;
       case "A* Search":
         visitedNodes = astar(this.grid, this.startNode, this.endNode);
-        nodesInPath = astarPath(this.endNode);
-        nodesInPath = nodesInPath.length === 1 ? [] : nodesInPath;
+        nodesInPath = findPath(this.endNode);
         break;
-      case "Depth First Search":
+      case "Greedy Best-First Search":
+        visitedNodes = greedy(this.grid, this.startNode, this.endNode);
+        nodesInPath = findPath(this.endNode);
+        break;
+      case "Depth-First Search":
         [visitedNodes, find] = dfs(this.grid, this.startNode, this.endNode);
         nodesInPath = find ? visitedNodes : [];
         break;
-      case "Breadth First Search":
+      case "Breadth-First Search":
         [visitedNodes, find] = bfs(this.grid, this.startNode, this.endNode);
         nodesInPath = find ? visitedNodes : [];
         break;
       default:
         visitedNodes = dijkstra(this.grid, this.startNode, this.endNode);
-        nodesInPath = dijkstraPath(this.startNode, this.endNode);
+        nodesInPath = findPath(this.startNode, this.endNode);
         break;
     }
     return [visitedNodes, nodesInPath];

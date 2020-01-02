@@ -4,6 +4,8 @@ import { nodeType } from "../components/Node";
 export function astar(grid, startNode, endNode) {
   let visitedNodes = [];
   let unvisitedNodes = [];
+
+  // calculate heuristic distance from each node to end node
   for (const row of grid) {
     for (const node of row) {
       node.manhattanDis = ManhattanDistance(node, endNode);
@@ -32,17 +34,6 @@ export function astar(grid, startNode, endNode) {
     updateUnvisitedNeighbors(closestNode, grid);
   }
   return visitedNodes;
-}
-
-export function astarPath(endNode) {
-  const nodesInShortestPath = [];
-  let currNode = endNode;
-
-  while (currNode !== null) {
-    nodesInShortestPath.unshift(currNode);
-    currNode = currNode.prevNode;
-  }
-  return nodesInShortestPath;
 }
 
 function updateUnvisitedNeighbors(node, grid) {

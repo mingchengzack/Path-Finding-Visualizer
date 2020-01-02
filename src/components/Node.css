@@ -61,10 +61,12 @@
 }
 
 .visited-noanimation {
+  border: 1px solid rgb(175, 216, 248);
   background-color: rgba(0, 190, 218, 0.75);
 }
 
 .visited {
+  border: 1px solid rgb(175, 216, 248);
   animation-name: visitedAnimation;
   animation-duration: 0.3s;
   animation-fill-mode: forwards;

@@ -12,8 +12,9 @@ import "./Navbar.css";
 const algorithms = [
   "Dijkstra",
   "A* Search",
-  "Depth First Search",
-  "Breadth First Search"
+  "Greedy Best-First Search",
+  "Depth-First Search",
+  "Breadth-First Search"
 ];
 
 const weights = ["Wall", "Weight 3", "Weight 5", "Weight 8"];

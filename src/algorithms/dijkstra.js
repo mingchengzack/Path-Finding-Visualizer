@@ -31,15 +31,18 @@ export function dijkstra(grid, startNode, endNode) {
 }
 
 // backtracks from the endNode to find the shortest path
-export function dijkstraPath(endNode) {
-  const nodesInShortestPath = [];
+export function findPath(endNode) {
+  let nodesInPath = [];
   let currNode = endNode;
 
   while (currNode !== null) {
-    nodesInShortestPath.unshift(currNode);
+    nodesInPath.unshift(currNode);
     currNode = currNode.prevNode;
   }
-  return nodesInShortestPath;
+
+  // check if end node is reached
+  nodesInPath = nodesInPath.length === 1 ? [] : nodesInPath;
+  return nodesInPath;
 }
 
 function updateUnvisitedNeighbors(node, grid) {
