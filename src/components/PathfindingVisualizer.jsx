@@ -17,6 +17,13 @@ const algorithms = [
   "Breadth-First Search"
 ];
 
+const maze = [
+  "Random Wall",
+  "Random Weight",
+  "Depth-First Search",
+  "Breadth-First Search"
+];
+
 const weights = ["Wall", "Weight 3", "Weight 5", "Weight 8"];
 
 const speeds = ["Fast", "Medium", "Slow"];
@@ -27,12 +34,17 @@ class PathfindingVisualizer extends Component {
     this.state = {
       curAlgorithm: "Dijkstra",
       curSpeed: "Fast",
-      curNodeType: "Wall"
+      curNodeType: "Wall",
+      curMaze: "Random Wall"
     };
   }
 
   handleChangeAlgorithm = algorithm => {
     this.setState({ curAlgorithm: algorithm });
+  };
+
+  handleChangeMaze = mazeType => {
+    this.setState({ curMaze: mazeType });
   };
 
   handleChangeSpeed = speedname => {
@@ -45,6 +57,10 @@ class PathfindingVisualizer extends Component {
 
   handleReset = () => {
     this.grid.resetGrid();
+  };
+
+  handleGenerateMaze = () => {
+    this.grid.generateMaze(this.state.curMaze);
   };
 
   handleVisualize = () => {
@@ -86,16 +102,14 @@ class PathfindingVisualizer extends Component {
               onClick={this.handleVisualize}
             />
             <Navitem
+              name={"Generate Maze"}
+              type={"button"}
+              onClick={this.handleGenerateMaze}
+            />
+            <Navitem
               name={"Reset Board"}
               type={"button"}
               onClick={this.handleReset}
-            />
-            <Navitem
-              name={"Add Node"}
-              type={"dropdown"}
-              itemList={weights}
-              curItem={this.state.curNodeType}
-              onChangeItem={this.handleChangeNodeType}
             />
             <Navitem
               name={"Algorithms"}
@@ -103,6 +117,20 @@ class PathfindingVisualizer extends Component {
               itemList={algorithms}
               curItem={this.state.curAlgorithm}
               onChangeItem={this.handleChangeAlgorithm}
+            />
+            <Navitem
+              name={"Maze"}
+              type={"dropdown"}
+              itemList={maze}
+              curItem={this.state.curMaze}
+              onChangeItem={this.handleChangeMaze}
+            />
+            <Navitem
+              name={"Add Node"}
+              type={"dropdown"}
+              itemList={weights}
+              curItem={this.state.curNodeType}
+              onChangeItem={this.handleChangeNodeType}
             />
             <Navitem
               name={"Speed"}
@@ -163,7 +191,7 @@ class PathfindingVisualizer extends Component {
           <ul>
             <li>
               <img src={add} alt="select" />
-              <div id="middle"> Add Wall or Weighted Nodes </div>
+              <div id="middle"> Add Wall, Weighted Nodes or Generate Maze </div>
             </li>
           </ul>
           <ul>

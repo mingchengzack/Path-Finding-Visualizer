@@ -55,6 +55,52 @@ class Grid extends Component {
     }
   }
 
+  generateMaze(mazeType) {
+    if (this.isVisualized) return;
+    this.isVisualized = true;
+    const mazeNodes = this.calculateMazeNodes(mazeType);
+    this.animateMaze(mazeNodes);
+  }
+
+  calculateMazeNodes(mazeType) {
+    let mazeNodes;
+    switch (mazeType) {
+      case "Random Wall":
+        mazeNodes = [];
+        break;
+      case "Random Weight":
+        mazeNodes = [];
+        break;
+      case "Depth-First Search":
+        mazeNodes = [];
+        break;
+      case "Breadth-First Search":
+        mazeNodes = [];
+        break;
+      default:
+        mazeNodes = [];
+        break;
+    }
+    return mazeNodes;
+  }
+
+  animateMaze(mazeNodes) {
+    for (let i = 0; i < mazeNodes.length; i++) {
+      setTimeout(() => {
+        const node = mazeNodes[i];
+        this[`node-${node.y}-${node.x}`].setNodeandAnimation(
+          node.type,
+          animationType.GENERATE
+        );
+      }, 2 * i);
+    }
+
+    // finish maze generation
+    setTimeout(() => {
+      this.isVisualized = false;
+    }, 10 + mazeNodes.length * 2);
+  }
+
   resetGridforVisualize() {
     let rows = this.props.rows;
     let cols = this.props.cols;
