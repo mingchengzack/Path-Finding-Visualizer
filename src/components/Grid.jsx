@@ -5,6 +5,7 @@ import { astar } from "../algorithms/astar";
 import { greedy } from "../algorithms/greedy";
 import { dfs } from "../algorithms/dfs";
 import { bfs } from "../algorithms/bfs";
+import { randomWall, randomWeight } from "../maze/random";
 
 import "./Node.css";
 
@@ -57,7 +58,10 @@ class Grid extends Component {
 
   generateMaze(mazeType) {
     if (this.isVisualized) return;
-    this.isVisualized = true;
+    this.resetGrid(); // reset the grid for new maze
+    this.isVisualized = true; // set flag
+
+    // generate maze nodes in grid
     const mazeNodes = this.calculateMazeNodes(mazeType);
     this.animateMaze(mazeNodes);
   }
@@ -66,10 +70,10 @@ class Grid extends Component {
     let mazeNodes;
     switch (mazeType) {
       case "Random Wall":
-        mazeNodes = [];
+        mazeNodes = randomWall(this.grid);
         break;
       case "Random Weight":
-        mazeNodes = [];
+        mazeNodes = randomWeight(this.grid);
         break;
       case "Depth-First Search":
         mazeNodes = [];
@@ -92,13 +96,13 @@ class Grid extends Component {
           node.type,
           animationType.GENERATE
         );
-      }, 2 * i);
+      }, 10 * i);
     }
 
     // finish maze generation
     setTimeout(() => {
       this.isVisualized = false;
-    }, 10 + mazeNodes.length * 2);
+    }, 10 + mazeNodes.length * 10);
   }
 
   resetGridforVisualize() {
@@ -119,7 +123,8 @@ class Grid extends Component {
 
   visualize(algorithm, speed) {
     if (this.isVisualized) return;
-    this.isVisualized = true;
+    this.isVisualized = true; // set flag
+
     // reset the internal of the grid
     // and clear previous visualization
     this.resetGridforVisualize();
