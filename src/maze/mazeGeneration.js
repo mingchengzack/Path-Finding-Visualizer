@@ -82,7 +82,6 @@ export function traversalGeneration(grid) {
       : grid[0][1].type !== nodeType.START && grid[0][1].type !== nodeType.END
       ? grid[0][1]
       : grid[0][2];
-  initNode.isVisited = true;
   initNode.type = nodeType.DEFAULT;
 
   let mazeNodes = [];
@@ -98,6 +97,8 @@ export function traversalGeneration(grid) {
     visitedNodes[randomIdx] = visitedNodes[0];
     visitedNodes[0] = temp;
     let curNode = visitedNodes.shift();
+    curNode.isVisited = true; // set visited flag
+    // make sure it doesn't connect previous maze
     if (isConnect(curNode, grid, curNode.prevNode)) {
       continue;
     }
@@ -112,7 +113,6 @@ export function traversalGeneration(grid) {
       visitedNodes.push(curNode);
 
       for (let neighbor of unvisitedNeighbors) {
-        neighbor.isVisited = true; // set visited
         neighbor.prevNode = curNode;
         visitedNodes.push(neighbor); // push it to the stack
       }

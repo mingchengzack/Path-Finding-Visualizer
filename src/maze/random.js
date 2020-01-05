@@ -6,7 +6,7 @@ export function randomWall(grid) {
     for (const node of row) {
       // generate wall on default node
       if (node.type === nodeType.DEFAULT) {
-        if (Math.random() >= 0.7) {
+        if (Math.random() >= 0.65) {
           node.type = nodeType.WALL; // set type
           mazeNodes.push(node);
         }
