@@ -27,7 +27,7 @@ export function randomWeight(grid) {
     for (const node of row) {
       // generate differnet weights on default node
       if (node.type === nodeType.DEFAULT) {
-        if (Math.random() >= 0.3) {
+        if (Math.random() >= 0.4) {
           // randomly choose a weight
           const weightType = weights[Math.floor(Math.random() * 3)];
           let weight =

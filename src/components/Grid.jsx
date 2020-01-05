@@ -6,6 +6,7 @@ import { greedy } from "../algorithms/greedy";
 import { dfs } from "../algorithms/dfs";
 import { bfs } from "../algorithms/bfs";
 import { randomWall, randomWeight } from "../maze/random";
+import { dfsGeneration, traversalGeneration } from "../maze/mazeGeneration";
 
 import "./Node.css";
 
@@ -51,6 +52,11 @@ class Grid extends Component {
           this.grid[i][j].weight = 1;
           this[`node-${i}-${j}`].setNode(nodeType.DEFAULT);
         }
+        this.grid[i][j].prevNode = null;
+        this.grid[i][j].distance = Infinity;
+        this.grid[i][j].totalDis = Infinity;
+        this.grid[i][j].manhattanDis = Infinity;
+        this.grid[i][j].isVisited = false;
         this[`node-${i}-${j}`].setAnimation(animationType.DEFAULT);
       }
     }
@@ -63,7 +69,30 @@ class Grid extends Component {
 
     // generate maze nodes in grid
     const mazeNodes = this.calculateMazeNodes(mazeType);
-    this.animateMaze(mazeNodes);
+    const generateWall =
+      mazeType === "Random Traversal" || mazeType === "Depth-First Search"
+        ? true
+        : false;
+    this.animateMaze(mazeNodes, generateWall);
+  }
+
+  generateAllWalls() {
+    let i = 0;
+    for (const row of this.grid) {
+      for (const node of row) {
+        // generate a grid with all walls
+        if (node.type === nodeType.DEFAULT) {
+          node.type = nodeType.WALL; // set to wall
+          setTimeout(() => {
+            this[`node-${node.y}-${node.x}`].setNodeandAnimation(
+              nodeType.WALL,
+              animationType.GENERATE
+            );
+          }, 4 * i);
+          i++;
+        }
+      }
+    }
   }
 
   calculateMazeNodes(mazeType) {
@@ -75,10 +104,15 @@ class Grid extends Component {
       case "Random Weight":
         mazeNodes = randomWeight(this.grid);
         break;
-      case "Depth-First Search":
-        mazeNodes = [];
+      case "Random Traversal":
+        this.generateAllWalls();
+        mazeNodes = traversalGeneration(this.grid);
         break;
-      case "Breadth-First Search":
+      case "Depth-First Search":
+        this.generateAllWalls();
+        mazeNodes = dfsGeneration(this.grid);
+        break;
+      case "Recursive Division":
         mazeNodes = [];
         break;
       default:
@@ -88,21 +122,25 @@ class Grid extends Component {
     return mazeNodes;
   }
 
-  animateMaze(mazeNodes) {
+  animateMaze(mazeNodes, generateWall) {
+    let interval = generateWall ? 1355 : 0;
+    // animate maze nodes
     for (let i = 0; i < mazeNodes.length; i++) {
       setTimeout(() => {
         const node = mazeNodes[i];
         this[`node-${node.y}-${node.x}`].setNodeandAnimation(
           node.type,
-          animationType.GENERATE
+          node.type === nodeType.DEFAULT
+            ? animationType.DEFAULT
+            : animationType.GENERATE
         );
-      }, 10 * i);
+      }, 4 * (i + interval + 1));
     }
 
     // finish maze generation
     setTimeout(() => {
       this.isVisualized = false;
-    }, 10 + mazeNodes.length * 10);
+    }, 10 + (interval + mazeNodes.length + 1) * 4);
   }
 
   resetGridforVisualize() {

@@ -20,8 +20,9 @@ const algorithms = [
 const maze = [
   "Random Wall",
   "Random Weight",
+  "Random Traversal",
   "Depth-First Search",
-  "Breadth-First Search"
+  "Recursive Division"
 ];
 
 const weights = ["Wall", "Weight 3", "Weight 5", "Weight 8"];
@@ -107,7 +108,7 @@ class PathfindingVisualizer extends Component {
               onClick={this.handleGenerateMaze}
             />
             <Navitem
-              name={"Reset Board"}
+              name={"Reset"}
               type={"button"}
               onClick={this.handleReset}
             />
