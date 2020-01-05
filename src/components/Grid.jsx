@@ -6,7 +6,11 @@ import { greedy } from "../algorithms/greedy";
 import { dfs } from "../algorithms/dfs";
 import { bfs } from "../algorithms/bfs";
 import { randomWall, randomWeight } from "../maze/random";
-import { dfsGeneration, traversalGeneration } from "../maze/mazeGeneration";
+import {
+  dfsGeneration,
+  traversalGeneration,
+  recursiveDivision
+} from "../maze/mazeGeneration";
 
 import "./Node.css";
 
@@ -113,7 +117,7 @@ class Grid extends Component {
         mazeNodes = dfsGeneration(this.grid);
         break;
       case "Recursive Division":
-        mazeNodes = [];
+        mazeNodes = recursiveDivision(this.grid);
         break;
       default:
         mazeNodes = [];

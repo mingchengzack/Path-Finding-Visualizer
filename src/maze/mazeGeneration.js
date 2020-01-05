@@ -97,11 +97,12 @@ export function traversalGeneration(grid) {
     visitedNodes[randomIdx] = visitedNodes[0];
     visitedNodes[0] = temp;
     let curNode = visitedNodes.shift();
-    curNode.isVisited = true; // set visited flag
+
     // make sure it doesn't connect previous maze
     if (isConnect(curNode, grid, curNode.prevNode)) {
       continue;
     }
+    curNode.isVisited = true; // set visited flag
     if (curNode.type === nodeType.WALL) {
       curNode.type = nodeType.DEFAULT; // remove wall
       mazeNodes.push(curNode); // add to animation nodes
@@ -110,8 +111,6 @@ export function traversalGeneration(grid) {
 
     // If the current cell has any neighbours which have not been visited
     if (unvisitedNeighbors.length !== 0) {
-      visitedNodes.push(curNode);
-
       for (let neighbor of unvisitedNeighbors) {
         neighbor.prevNode = curNode;
         visitedNodes.push(neighbor); // push it to the stack
@@ -123,4 +122,7 @@ export function traversalGeneration(grid) {
 }
 
 // recursive division
-export function recursiveDivision(grid) {}
+export function recursiveDivision(grid) {
+  let mazeNodes = [];
+  return mazeNodes;
+}
