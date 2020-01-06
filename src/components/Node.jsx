@@ -69,12 +69,14 @@ class Node extends Component {
         : "";
 
     return (
-      <div
-        className={`node ${typename} ${animationname}`}
-        onMouseDown={() => this.props.onMouseDown(this.state)}
-        onMouseEnter={() => this.props.onMouseEnter(this.state)}
-        onDragStart={this.preventDragHandler}
-      ></div>
+      <div className={`cell`}>
+        <div
+          className={`node ${typename} ${animationname}`}
+          onMouseDown={() => this.props.onMouseDown(this.state)}
+          onMouseEnter={() => this.props.onMouseEnter(this.state)}
+          onDragStart={this.preventDragHandler}
+        ></div>
+      </div>
     );
   }
 }
