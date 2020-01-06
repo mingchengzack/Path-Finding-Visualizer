@@ -14,10 +14,10 @@ import {
 
 import "./Node.css";
 
-const DEFAULT_START_X = 18;
-const DEFAULT_START_Y = 10;
-const DEFAULT_END_X = 38;
-const DEFAULT_END_Y = 10;
+const DEFAULT_START_X = Math.floor((window.innerWidth / 25 + 2) / 4);
+const DEFAULT_START_Y = Math.floor((window.innerHeight / 25 - 9) / 2);
+const DEFAULT_END_X = Math.floor(((window.innerWidth / 25 + 2) * 3) / 4);
+const DEFAULT_END_Y = Math.floor((window.innerHeight / 25 - 9) / 2);
 
 class Grid extends Component {
   constructor(props) {
@@ -127,7 +127,9 @@ class Grid extends Component {
   }
 
   animateMaze(mazeNodes, generateWall) {
-    let interval = generateWall ? 1355 : 0;
+    let rows = this.props.rows;
+    let cols = this.props.cols;
+    let interval = generateWall ? rows * cols : 0;
     // animate maze nodes
     for (let i = 0; i < mazeNodes.length; i++) {
       setTimeout(() => {

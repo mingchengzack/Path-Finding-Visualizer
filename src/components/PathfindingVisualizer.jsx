@@ -80,10 +80,15 @@ class PathfindingVisualizer extends Component {
         speed = 12;
         break;
     }
+    if (window.innerWidth > 1440) {
+      speed = speed / 2;
+    }
     this.grid.visualize(this.state.curAlgorithm, speed);
   };
 
   render() {
+    let row = Math.ceil(window.innerHeight / 25) - 9;
+    let col = Math.ceil(window.innerWidth / 25) + 2;
     let nodetype =
       this.state.curNodeType === "Weight 3"
         ? nodeType.WEIGHT_THREE
@@ -203,8 +208,8 @@ class PathfindingVisualizer extends Component {
           </ul>
         </div>
         <Grid
-          rows={23}
-          cols={59}
+          rows={row}
+          cols={col}
           algorithm={this.state.curAlgorithm}
           nodetype={nodetype}
           onRef={ref => (this.grid = ref)}
