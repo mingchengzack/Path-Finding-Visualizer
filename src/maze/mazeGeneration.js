@@ -123,6 +123,8 @@ export function traversalGeneration(grid) {
 
 // recursive division
 export function recursiveDivision(grid) {
+  let row = grid.length;
+  let col = grid[0].length;
   let mazeNodes = [];
   return mazeNodes;
 }
