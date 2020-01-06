@@ -88,7 +88,7 @@ class PathfindingVisualizer extends Component {
 
   render() {
     let row = Math.ceil(window.innerHeight / 25) - 9;
-    let col = Math.ceil(window.innerWidth / 25) + 2;
+    let col = Math.ceil(window.innerWidth / 25) + 1;
     let nodetype =
       this.state.curNodeType === "Weight 3"
         ? nodeType.WEIGHT_THREE
