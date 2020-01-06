@@ -14,9 +14,9 @@ import {
 
 import "./Node.css";
 
-const DEFAULT_START_X = Math.floor((window.innerWidth / 25 + 2) / 4);
+const DEFAULT_START_X = Math.floor((window.innerWidth / 25 + 1) / 4);
 const DEFAULT_START_Y = Math.floor((window.innerHeight / 25 - 9) / 2);
-const DEFAULT_END_X = Math.floor(((window.innerWidth / 25 + 2) * 3) / 4);
+const DEFAULT_END_X = Math.floor(((window.innerWidth / 25 + 1) * 3) / 4);
 const DEFAULT_END_Y = Math.floor((window.innerHeight / 25 - 9) / 2);
 
 class Grid extends Component {
