@@ -42,8 +42,8 @@ class Grid extends Component {
 
   resetGrid() {
     if (this.isVisualized) return;
-    let rows = this.props.rows;
-    let cols = this.props.cols;
+    let rows = this.grid.length;
+    let cols = this.grid[0].length;
     this.algorithm = null;
 
     for (let i = 0; i < rows; i++) {
@@ -127,8 +127,8 @@ class Grid extends Component {
   }
 
   animateMaze(mazeNodes, generateWall) {
-    let rows = this.props.rows;
-    let cols = this.props.cols;
+    let rows = this.grid.length;
+    let cols = this.grid[0].length;
     let interval = generateWall ? rows * cols : 0;
     // animate maze nodes
     for (let i = 0; i < mazeNodes.length; i++) {
@@ -150,8 +150,8 @@ class Grid extends Component {
   }
 
   resetGridforVisualize() {
-    let rows = this.props.rows;
-    let cols = this.props.cols;
+    let rows = this.grid.length;
+    let cols = this.grid[0].length;
 
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {

@@ -110,11 +110,9 @@ export function traversalGeneration(grid) {
     const unvisitedNeighbors = getUnvisitedNeighbors(curNode, grid);
 
     // If the current cell has any neighbours which have not been visited
-    if (unvisitedNeighbors.length !== 0) {
-      for (let neighbor of unvisitedNeighbors) {
-        neighbor.prevNode = curNode;
-        visitedNodes.push(neighbor); // push it to the stack
-      }
+    for (let neighbor of unvisitedNeighbors) {
+      neighbor.prevNode = curNode;
+      visitedNodes.push(neighbor); // push it to the stack
     }
   }
 
@@ -126,7 +124,7 @@ export function recursiveDivision(grid) {
   let row = grid.length;
   let col = grid[0].length;
   let mazeNodes = [];
-  recursiveDivisionHelper(grid, 0, row - 1, 0, col - 1, mazeNodes);
+  recursiveDivisionHelper(grid, 1, row - 2, 1, col - 2, mazeNodes); // extra room for passage
   return mazeNodes;
 }
 
@@ -146,11 +144,10 @@ function recursiveDivisionHelper(
   rowEnd,
   colStart,
   colEnd,
-  mazeNodes,
-  passages
+  mazeNodes
 ) {
   // finish division
-  if (rowEnd - rowStart < 1 || colEnd - colStart < 1) {
+  if (rowEnd - rowStart < 0 || colEnd - colStart < 0) {
     return;
   }
   let width = colEnd - colStart + 1;
@@ -169,37 +166,72 @@ function recursiveDivisionHelper(
   let passageCol =
     selectedCol + (horizontal ? Math.floor(Math.random() * width) : 0);
 
-  // what direction will the wall be drawn
-  let x = selectedCol;
-  let y = selectedRow;
-  let dx = horizontal ? 1 : 0;
-  let dy = horizontal ? 0 : 1;
-
-  // length of the wall
-  let length = horizontal ? width : height;
-
-  // draw walls
-  for (let i = 0; i < length; i++) {
-    // excludes passage
-    if (
-      (selectedRow !== passageRow || selectedCol !== passageCol) &&
-      grid[selectedRow][selectedCol].type === nodeType.DEFAULT
-    ) {
-      grid[selectedRow][selectedCol].type = nodeType.WALL;
-      mazeNodes.push(grid[selectedRow][selectedCol]);
+  // random walls and passage (walls on even, passage on odd)
+  if (horizontal) {
+    let possibleRows = [];
+    for (let number = rowStart; number <= rowEnd; number += 2) {
+      possibleRows.push(number);
     }
+    let possibleCols = [];
+    for (let number = colStart - 1; number <= colEnd + 1; number += 2) {
+      possibleCols.push(number);
+    }
+    let randomRowIndex = Math.floor(Math.random() * possibleRows.length);
+    let randomColIndex = Math.floor(Math.random() * possibleCols.length);
+    selectedRow = possibleRows[randomRowIndex];
+    passageCol = possibleCols[randomColIndex];
+  } else {
+    let possibleCols = [];
+    for (let number = colStart; number <= colEnd; number += 2) {
+      possibleCols.push(number);
+    }
+    let possibleRows = [];
+    for (let number = rowStart - 1; number <= rowEnd + 1; number += 2) {
+      possibleRows.push(number);
+    }
+    let randomColIndex = Math.floor(Math.random() * possibleCols.length);
+    let randomRowIndex = Math.floor(Math.random() * possibleRows.length);
+    selectedCol = possibleCols[randomColIndex];
+    passageRow = possibleRows[randomRowIndex];
+  }
 
-    selectedRow += dy;
-    selectedCol += dx;
+  // draw walls and passage
+  for (let row of grid) {
+    for (let node of row) {
+      const { x, y } = node;
+      if (horizontal) {
+        if (
+          y === selectedRow &&
+          x !== passageCol &&
+          x >= colStart - 1 &&
+          x <= colEnd + 1 &&
+          node.type === nodeType.DEFAULT
+        ) {
+          node.type = nodeType.WALL;
+          mazeNodes.push(node);
+        }
+      } else {
+        if (
+          x === selectedCol &&
+          y !== passageRow &&
+          y >= rowStart - 1 &&
+          y <= rowEnd + 1 &&
+          node.type === nodeType.DEFAULT
+        ) {
+          node.type = nodeType.WALL;
+          mazeNodes.push(node);
+        }
+      }
+    }
   }
 
   // recursively draw on subfields
-  let ny = y + (horizontal ? 2 : 0);
-  let nx = x + (horizontal ? 0 : 2);
+  let ny = selectedRow + (horizontal ? 2 : 0);
+  let nx = selectedCol + (horizontal ? 0 : 2);
   recursiveDivisionHelper(grid, ny, rowEnd, nx, colEnd, mazeNodes);
 
-  ny = horizontal ? y - 2 : rowEnd;
-  nx = horizontal ? colEnd : x - 2;
+  ny = horizontal ? selectedRow - 2 : rowEnd;
+  nx = horizontal ? colEnd : selectedCol - 2;
   recursiveDivisionHelper(grid, rowStart, ny, colStart, nx, mazeNodes);
 }
 
