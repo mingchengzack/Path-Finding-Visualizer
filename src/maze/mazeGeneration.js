@@ -154,75 +154,55 @@ function recursiveDivisionHelper(
   let height = rowEnd - rowStart + 1;
   let horizontal = chooseOrientation(width, height) === DIR.HORIZONTAL;
 
-  // where to draw
-  let selectedRow =
-    rowStart + (horizontal ? Math.floor(Math.random() * (height - 2)) + 1 : 0);
-  let selectedCol =
-    colStart + (horizontal ? 0 : Math.floor(Math.random() * (width - 2)) + 1);
+  // find possible rows and cols
+  let possibleRows = [];
+  let possibleCols = [];
 
-  // where is the passage
-  let passageRow =
-    selectedRow + (horizontal ? 0 : Math.floor(Math.random() * height));
-  let passageCol =
-    selectedCol + (horizontal ? Math.floor(Math.random() * width) : 0);
-
-  // random walls and passage (walls on even, passage on odd)
-  if (horizontal) {
-    let possibleRows = [];
-    for (let number = rowStart; number <= rowEnd; number += 2) {
-      possibleRows.push(number);
-    }
-    let possibleCols = [];
-    for (let number = colStart - 1; number <= colEnd + 1; number += 2) {
-      possibleCols.push(number);
-    }
-    let randomRowIndex = Math.floor(Math.random() * possibleRows.length);
-    let randomColIndex = Math.floor(Math.random() * possibleCols.length);
-    selectedRow = possibleRows[randomRowIndex];
-    passageCol = possibleCols[randomColIndex];
-  } else {
-    let possibleCols = [];
-    for (let number = colStart; number <= colEnd; number += 2) {
-      possibleCols.push(number);
-    }
-    let possibleRows = [];
-    for (let number = rowStart - 1; number <= rowEnd + 1; number += 2) {
-      possibleRows.push(number);
-    }
-    let randomColIndex = Math.floor(Math.random() * possibleCols.length);
-    let randomRowIndex = Math.floor(Math.random() * possibleRows.length);
-    selectedCol = possibleCols[randomColIndex];
-    passageRow = possibleRows[randomRowIndex];
+  for (
+    let row = horizontal ? rowStart : rowStart - 1;
+    row <= (horizontal ? rowEnd : rowEnd + 1);
+    row += 2
+  ) {
+    possibleRows.push(row);
   }
 
+  for (
+    let col = horizontal ? colStart - 1 : colStart;
+    col <= (horizontal ? colEnd + 1 : colEnd);
+    col += 2
+  ) {
+    possibleCols.push(col);
+  }
+
+  let randomRowIndex = Math.floor(Math.random() * possibleRows.length);
+  let randomColIndex = Math.floor(Math.random() * possibleCols.length);
+
+  // where to draw
+  let selectedRow = horizontal ? possibleRows[randomRowIndex] : rowStart;
+  let selectedCol = horizontal ? colStart : possibleCols[randomColIndex];
+
+  // where is the passage : random walls and passage (walls on even, passage on odd)
+  let passageRow = horizontal ? selectedRow : possibleRows[randomRowIndex];
+  let passageCol = horizontal ? possibleCols[randomColIndex] : selectedCol;
+
   // draw walls and passage
-  for (let row of grid) {
-    for (let node of row) {
-      const { x, y } = node;
-      if (horizontal) {
-        if (
-          y === selectedRow &&
-          x !== passageCol &&
-          x >= colStart - 1 &&
-          x <= colEnd + 1 &&
-          node.type === nodeType.DEFAULT
-        ) {
-          node.type = nodeType.WALL;
-          mazeNodes.push(node);
-        }
-      } else {
-        if (
-          x === selectedCol &&
-          y !== passageRow &&
-          y >= rowStart - 1 &&
-          y <= rowEnd + 1 &&
-          node.type === nodeType.DEFAULT
-        ) {
-          node.type = nodeType.WALL;
-          mazeNodes.push(node);
-        }
-      }
+  let x = horizontal ? colStart - 1 : selectedCol;
+  let y = horizontal ? selectedRow : rowStart - 1;
+  let dx = horizontal ? 1 : 0;
+  let dy = horizontal ? 0 : 1;
+  let length = horizontal ? width + 1 : height + 1;
+
+  for (let i = 0; i <= length; i++) {
+    if (
+      (x !== passageCol || y !== passageRow) &&
+      grid[y][x].type === nodeType.DEFAULT
+    ) {
+      grid[y][x].type = nodeType.WALL;
+      mazeNodes.push(grid[y][x]);
     }
+
+    x += dx;
+    y += dy;
   }
 
   // recursively draw on subfields
