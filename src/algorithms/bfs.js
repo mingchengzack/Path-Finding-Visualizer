@@ -12,13 +12,13 @@ export function bfs(grid, startNode, endNode) {
     visitedNodes.push(curNode);
 
     // reach goal
-    if (curNode === endNode) return [visitedNodes, true];
+    if (curNode === endNode) return visitedNodes;
 
     // add neighbors to unvisitedNodes
     updateUnvisitedNeighbors(curNode, grid, unvisitedNodes);
   }
 
-  return [visitedNodes, false];
+  return visitedNodes;
 }
 
 function updateUnvisitedNeighbors(node, grid, unvisitedNodes) {
@@ -29,6 +29,7 @@ function updateUnvisitedNeighbors(node, grid, unvisitedNodes) {
     grid[y][x - 1].type !== nodeType.WALL
   ) {
     grid[y][x - 1].isVisited = true;
+    grid[y][x - 1].prevNode = node;
     unvisitedNodes.push(grid[y][x - 1]);
   }
   if (
@@ -37,6 +38,7 @@ function updateUnvisitedNeighbors(node, grid, unvisitedNodes) {
     grid[y + 1][x].type !== nodeType.WALL
   ) {
     grid[y + 1][x].isVisited = true;
+    grid[y + 1][x].prevNode = node;
     unvisitedNodes.push(grid[y + 1][x]);
   }
   if (
@@ -45,6 +47,7 @@ function updateUnvisitedNeighbors(node, grid, unvisitedNodes) {
     grid[y][x + 1].type !== nodeType.WALL
   ) {
     grid[y][x + 1].isVisited = true;
+    grid[y][x + 1].prevNode = node;
     unvisitedNodes.push(grid[y][x + 1]);
   }
   if (
@@ -53,6 +56,7 @@ function updateUnvisitedNeighbors(node, grid, unvisitedNodes) {
     grid[y - 1][x].type !== nodeType.WALL
   ) {
     grid[y - 1][x].isVisited = true;
+    grid[y - 1][x].prevNode = node;
     unvisitedNodes.push(grid[y - 1][x]);
   }
 }

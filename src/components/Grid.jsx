@@ -202,33 +202,28 @@ class Grid extends Component {
   }
 
   calculateVisualizedNodes(algorithm) {
-    let visitedNodes, nodesInPath, find;
+    let visitedNodes, nodesInPath;
     switch (algorithm) {
       case "Dijkstra":
         visitedNodes = dijkstra(this.grid, this.startNode, this.endNode);
-        nodesInPath = findPath(this.endNode);
         break;
       case "A* Search":
         visitedNodes = astar(this.grid, this.startNode, this.endNode);
-        nodesInPath = findPath(this.endNode);
         break;
       case "Greedy Best-First Search":
         visitedNodes = greedy(this.grid, this.startNode, this.endNode);
-        nodesInPath = findPath(this.endNode);
         break;
       case "Depth-First Search":
-        [visitedNodes, find] = dfs(this.grid, this.startNode, this.endNode);
-        nodesInPath = find ? visitedNodes : [];
+        visitedNodes = dfs(this.grid, this.startNode, this.endNode);
         break;
       case "Breadth-First Search":
-        [visitedNodes, find] = bfs(this.grid, this.startNode, this.endNode);
-        nodesInPath = find ? visitedNodes : [];
+        visitedNodes = bfs(this.grid, this.startNode, this.endNode);
         break;
       default:
         visitedNodes = dijkstra(this.grid, this.startNode, this.endNode);
-        nodesInPath = findPath(this.startNode, this.endNode);
         break;
     }
+    nodesInPath = findPath(this.endNode);
     return [visitedNodes, nodesInPath];
   }
 
