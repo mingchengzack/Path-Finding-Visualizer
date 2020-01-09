@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/Path-Finding-Visualizer/static/css/main.07128292.chunk.css",
-    "main.js": "/Path-Finding-Visualizer/static/js/main.774b10a9.chunk.js",
-    "main.js.map": "/Path-Finding-Visualizer/static/js/main.774b10a9.chunk.js.map",
+    "main.js": "/Path-Finding-Visualizer/static/js/main.844bed60.chunk.js",
+    "main.js.map": "/Path-Finding-Visualizer/static/js/main.844bed60.chunk.js.map",
     "runtime-main.js": "/Path-Finding-Visualizer/static/js/runtime-main.e66d59bc.js",
     "runtime-main.js.map": "/Path-Finding-Visualizer/static/js/runtime-main.e66d59bc.js.map",
     "static/css/2.31b9d3d8.chunk.css": "/Path-Finding-Visualizer/static/css/2.31b9d3d8.chunk.css",
-    "static/js/2.19c70ebf.chunk.js": "/Path-Finding-Visualizer/static/js/2.19c70ebf.chunk.js",
-    "static/js/2.19c70ebf.chunk.js.map": "/Path-Finding-Visualizer/static/js/2.19c70ebf.chunk.js.map",
+    "static/js/2.9a3a6209.chunk.js": "/Path-Finding-Visualizer/static/js/2.9a3a6209.chunk.js",
+    "static/js/2.9a3a6209.chunk.js.map": "/Path-Finding-Visualizer/static/js/2.9a3a6209.chunk.js.map",
     "index.html": "/Path-Finding-Visualizer/index.html",
-    "precache-manifest.359801a8f03c281dd61be0936313e9fd.js": "/Path-Finding-Visualizer/precache-manifest.359801a8f03c281dd61be0936313e9fd.js",
+    "precache-manifest.d7c020f6ffb0e11780614a7ac1cf74fe.js": "/Path-Finding-Visualizer/precache-manifest.d7c020f6ffb0e11780614a7ac1cf74fe.js",
     "service-worker.js": "/Path-Finding-Visualizer/service-worker.js",
     "static/css/2.31b9d3d8.chunk.css.map": "/Path-Finding-Visualizer/static/css/2.31b9d3d8.chunk.css.map",
     "static/css/main.07128292.chunk.css.map": "/Path-Finding-Visualizer/static/css/main.07128292.chunk.css.map",
-    "static/js/2.19c70ebf.chunk.js.LICENSE": "/Path-Finding-Visualizer/static/js/2.19c70ebf.chunk.js.LICENSE",
+    "static/js/2.9a3a6209.chunk.js.LICENSE": "/Path-Finding-Visualizer/static/js/2.9a3a6209.chunk.js.LICENSE",
     "static/media/add.svg": "/Path-Finding-Visualizer/static/media/add.93421e0d.svg",
     "static/media/Navbar.css": "/Path-Finding-Visualizer/static/media/w8.40efc72d.svg",
     "static/media/index.css": "/Path-Finding-Visualizer/static/media/roboto-latin-900italic.ebf6d164.woff2",
@@ -23,8 +23,8 @@
   "entrypoints": [
     "static/js/runtime-main.e66d59bc.js",
     "static/css/2.31b9d3d8.chunk.css",
-    "static/js/2.19c70ebf.chunk.js",
+    "static/js/2.9a3a6209.chunk.js",
     "static/css/main.07128292.chunk.css",
-    "static/js/main.774b10a9.chunk.js"
+    "static/js/main.844bed60.chunk.js"
   ]
 }
