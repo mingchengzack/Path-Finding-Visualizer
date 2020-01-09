@@ -1,5 +1,6 @@
 # Path-Finding-Visualizer
 A website that helps you visualize path-finding algorithms, built with React.js.
+
 https://mingchengzack.github.io/Path-Finding-Visualizer/
 
 ## Instructions
