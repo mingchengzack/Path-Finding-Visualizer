@@ -32,28 +32,35 @@ const speeds = ["Fast", "Medium", "Slow"];
 class PathfindingVisualizer extends Component {
   constructor() {
     super();
-    this.state = {
-      curAlgorithm: "Dijkstra",
-      curSpeed: "Fast",
-      curNodeType: "Wall",
-      curMaze: "Random Wall"
-    };
+    this.curAlgorithm = "Dijkstra";
+    this.curSpeed = "Fast";
+    this.curNodeType = "Wall";
+    this.curMaze = "Random Wall";
   }
 
   handleChangeAlgorithm = algorithm => {
-    this.setState({ curAlgorithm: algorithm });
+    this.curAlgorithm = algorithm;
+    this.grid.chosenAlgorithm = algorithm;
   };
 
   handleChangeMaze = mazeType => {
-    this.setState({ curMaze: mazeType });
+    this.curMaze = mazeType;
   };
 
   handleChangeSpeed = speedname => {
-    this.setState({ curSpeed: speedname });
+    this.curSpeed = speedname;
   };
 
   handleChangeNodeType = nodetype => {
-    this.setState({ curNodeType: nodetype });
+    this.curNodeType = nodetype;
+    this.grid.nodetype =
+      this.curNodeType === "Weight 3"
+        ? nodeType.WEIGHT_THREE
+        : this.curNodeType === "Weight 5"
+        ? nodeType.WEIGHT_FIVE
+        : this.curNodeType === "Weight 8"
+        ? nodeType.WEIGHT_EIGHT
+        : nodeType.WALL;
   };
 
   handleReset = () => {
@@ -61,12 +68,12 @@ class PathfindingVisualizer extends Component {
   };
 
   handleGenerateMaze = () => {
-    this.grid.generateMaze(this.state.curMaze);
+    this.grid.generateMaze(this.curMaze);
   };
 
   handleVisualize = () => {
     let speed = 12;
-    switch (this.state.curSpeed) {
+    switch (this.curSpeed) {
       case "Fast":
         speed = 12;
         break;
@@ -83,20 +90,12 @@ class PathfindingVisualizer extends Component {
     if (window.innerWidth > 1440) {
       speed = speed / 2;
     }
-    this.grid.visualize(this.state.curAlgorithm, speed);
+    this.grid.visualize(this.curAlgorithm, speed);
   };
 
   render() {
     let row = Math.ceil(window.innerHeight / 25) - 9;
     let col = Math.ceil(window.innerWidth / 25) + 1;
-    let nodetype =
-      this.state.curNodeType === "Weight 3"
-        ? nodeType.WEIGHT_THREE
-        : this.state.curNodeType === "Weight 5"
-        ? nodeType.WEIGHT_FIVE
-        : this.state.curNodeType === "Weight 8"
-        ? nodeType.WEIGHT_EIGHT
-        : nodeType.WALL;
     return (
       <div>
         <Navbar variant="custom">
@@ -121,28 +120,28 @@ class PathfindingVisualizer extends Component {
               name={"Algorithms"}
               type={"dropdown"}
               itemList={algorithms}
-              curItem={this.state.curAlgorithm}
+              curItem={this.curAlgorithm}
               onChangeItem={this.handleChangeAlgorithm}
             />
             <Navitem
               name={"Maze"}
               type={"dropdown"}
               itemList={maze}
-              curItem={this.state.curMaze}
+              curItem={this.curMaze}
               onChangeItem={this.handleChangeMaze}
             />
             <Navitem
               name={"Add Node"}
               type={"dropdown"}
               itemList={weights}
-              curItem={this.state.curNodeType}
+              curItem={this.curNodeType}
               onChangeItem={this.handleChangeNodeType}
             />
             <Navitem
               name={"Speed"}
               type={"dropdown"}
               itemList={speeds}
-              curItem={this.state.curSpeed}
+              curItem={this.curSpeed}
               onChangeItem={this.handleChangeSpeed}
             />
           </Nav>
@@ -207,13 +206,7 @@ class PathfindingVisualizer extends Component {
             </li>
           </ul>
         </div>
-        <Grid
-          rows={row}
-          cols={col}
-          algorithm={this.state.curAlgorithm}
-          nodetype={nodetype}
-          onRef={ref => (this.grid = ref)}
-        />
+        <Grid rows={row} cols={col} onRef={ref => (this.grid = ref)} />
       </div>
     );
   }

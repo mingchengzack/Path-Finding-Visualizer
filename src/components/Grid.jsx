@@ -28,6 +28,8 @@ class Grid extends Component {
     this.isMousePressed = false;
     this.isVisualized = false;
     this.algorithm = null;
+    this.chosenAlgorithm = "Dijkstra";
+    this.nodetype = nodeType.WALL;
     this.clickedNode = null;
     this.modfiedNodes = [];
   }
@@ -182,7 +184,7 @@ class Grid extends Component {
   adaptAlgorithm() {
     this.resetGridforVisualize();
     const [visitedNodes, nodesInPath] = this.calculateVisualizedNodes(
-      this.props.algorithm
+      this.chosenAlgorithm
     );
 
     for (let i = 0; i < visitedNodes.length + nodesInPath.length; i++) {
@@ -326,7 +328,7 @@ class Grid extends Component {
       ...node
     };
 
-    this.toggleNode(node, this.props.nodetype);
+    this.toggleNode(node, this.nodetype);
 
     // can only modify the node once (for non-start, non-end nodes)
     if (
@@ -345,7 +347,7 @@ class Grid extends Component {
       this.clickedNode.type !== nodeType.START &&
       this.clickedNode.type !== nodeType.END
     ) {
-      this.toggleNode(node, this.props.nodetype);
+      this.toggleNode(node, this.nodetype);
 
       // set the flag so that the node cannot be modified
       node.canModify = false;

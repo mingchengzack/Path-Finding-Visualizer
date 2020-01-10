@@ -6,8 +6,13 @@ import "./Navbar.css";
 class Navitem extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: props.name, type: props.type };
+    this.state = { name: props.name, type: props.type, curItem: props.curItem };
   }
+
+  handleChangeItem = item => {
+    this.setState({ curItem: item });
+    this.props.onChangeItem(item);
+  };
 
   render() {
     const { type } = this.state;
@@ -24,7 +29,7 @@ class Navitem extends Component {
         <li>
           <Dropdown>
             <Dropdown.Toggle id="dropdown-toggle">
-              {this.state.name + " : " + this.props.curItem + "  "}
+              {this.state.name + " : " + this.state.curItem + "  "}
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
@@ -32,7 +37,7 @@ class Navitem extends Component {
                 return (
                   <Dropdown.Item
                     key={item}
-                    onSelect={() => this.props.onChangeItem(item)}
+                    onSelect={() => this.handleChangeItem(item)}
                     id="dropdown-item"
                   >
                     {item}
